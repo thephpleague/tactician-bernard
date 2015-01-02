@@ -68,11 +68,7 @@ class Consumer
             return;
         }
 
-        $command = $envelope->getMessage();
-
-        if ($command instanceof CommandMessage) {
-            $command = $command->getCommand();
-        }
+        $command = $this->getCommand($envelope);
 
         try {
             $commandBus->execute($command);
@@ -84,6 +80,24 @@ class Consumer
         }
 
         $this->emit('commandExecuted');
+    }
+
+    /**
+     * Returns the command from the envelope
+     *
+     * @param Envelope $envelope
+     *
+     * @return object
+     */
+    protected function getCommandFrom(Envelope $envelope)
+    {
+        $command = $envelope->getMessage();
+
+        if ($command instanceof CommandMessage) {
+            $command = $command->getCommand();
+        }
+
+        return $command;
     }
 
     /**
