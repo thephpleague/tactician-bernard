@@ -8,7 +8,7 @@
 [![HHVM Status](https://img.shields.io/hhvm/indigophp/doris.svg?style=flat-square)](http://hhvm.h4cc.de/package/indigophp/doris)
 [![Total Downloads](https://img.shields.io/packagist/dt/indigophp/doris.svg?style=flat-square)](https://packagist.org/packages/indigophp/doris)
 
-**Doris is a Job runner implementation based on [Bernard](http://bernardphp.com).**
+**Doris is a remote command bus implementation based on [Bernard](http://bernardphp.com) and [Tactician](https://github.com/rosstuck/tactician).**
 
 
 ## Install
@@ -19,11 +19,26 @@ Via Composer
 $ composer require indigophp/doris
 ```
 
+
+### Temporary workaround
+
+Tactician is not yet released. Until it gets released, add this to the `composer.json`:
+
+``` json
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/rosstuck/tactician.git"
+    }
+]
+```
+
+
 ## Usage
 
 Install Doris in both your application and (if you have any) dedicated worker package/instance.
 
-You can run your workers directly using your application, however you should avoid it if possible. Bootstrapping your application consumes more resource than necessary. (That said, sometimes it is simply easier.) In this case you have to make sure that you provide your worker instance with all the data it needs: database connection details, required dependencies, etc.
+You can run your consumer directly using your application, however you should avoid it if possible. Bootstrapping your application consumes more resource than necessary. (That said, sometimes it is simply easier.) In this case you have to make sure that you provide your consumer instance with all the data it needs: database connection details, required dependencies, etc.
 
 
 ## Testing
