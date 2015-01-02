@@ -41,6 +41,47 @@ Install Doris in both your application and (if you have any) dedicated worker pa
 You can run your consumer directly using your application, however you should avoid it if possible. Bootstrapping your application consumes more resource than necessary. (That said, sometimes it is simply easier.) In this case you have to make sure that you provide your consumer instance with all the data it needs: database connection details, required dependencies, etc.
 
 
+### Remote execution
+
+To send a command to it's destination, simply create a remote executing command bus, and use it like you would use any other:
+
+``` php
+use Doris\RemoteCommandBus;
+
+// ...create a Bernard\Queue instance
+// make sure to add te appropriate serializers
+
+$commandBus = new RemoteCommandBus($queue);
+
+$commandBus->execute($command);
+```
+
+
+### Consuming commands
+
+On the other side of the message queue you must set up a consumer:
+
+``` php
+use Doris\ConsumingCommandBus;
+use Doris\Listener\CommandLimit;
+
+// ... create your inner commandBus
+
+$consumingCommandBus = new ConsumingCommandBus;
+
+// execute maximum of 10 commands
+$consumingCommandBus->addListener(new CommandLimit(10));
+
+$consumingCommandBus->consume($queue, $commandBus);
+```
+
+List of available listeners:
+
+- `CommandLimit`: limits how many commands should be executed
+- `TimeLimit`: limits how long the consumer can run
+- `Wait`: wait for some time at the end of every cycle
+
+
 ## Testing
 
 ``` bash
