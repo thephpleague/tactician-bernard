@@ -1,0 +1,5 @@
+suites:
+  doris_suite:
+    namespace: Doris
+    psr4_prefix: Doris
+formatter.name: pretty
