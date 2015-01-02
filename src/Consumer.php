@@ -23,30 +23,14 @@ declare(ticks=1);
  */
 class Consumer
 {
-    /**
-     * @var integer|null
-     */
-    protected $messageLimit;
+    use \League\Event\EmitterTrait;
 
     /**
-     * @var integer
+     * While this is true the loop will continue running
+     *
+     * @var boolean
      */
-    protected $messageCount;
-
-    /**
-     * @var numeric
-     */
-    protected $runtimeLimit;
-
-    /**
-     * @param numeric      $runtimeLimit
-     * @param integer|null $messageLimit
-     */
-    public function __construct($messageLimit = null, $runtimeLimit = PHP_INT_MAX)
-    {
-        $this->messageLimit = $messageLimit;
-        $this->runtimeLimit = $runtimeLimit;
-    }
+    protected $run = true;
 
     /**
      * Starts an infinite loop
@@ -58,16 +42,17 @@ class Consumer
     {
         $this->bind();
 
-        // Start measuring time
-        $this->runtimeLimit += microtime(true);
+        $this->emit('consumerStarted');
+        $consumerCycleEvent = new Event\ConsumerCycle($this);
 
-        while (true) {
+        while ($this->run) {
             try {
-                $this->check();
                 $this->doConsume($queue, $commandBus);
             } catch (Exception\StopConsumer $e) {
                 break;
             }
+
+            $this->emit($consumerCycleEvent);
         }
     }
 
@@ -92,29 +77,13 @@ class Consumer
         try {
             $commandBus->execute($command);
             $queue->acknowledge($envelope);
-
-            $this->messageCount++;
         } catch (Exception\CommandFailed $e) {
-            // handle command failed
+            $this->emit('commandFailed', $e);
         } catch (\Exception $e) {
-            // handle command errored
-        }
-    }
-
-    /**
-     * Checks whether the consumer should run
-     */
-    protected function check()
-    {
-        if (is_null($this->messageLimit) or $this->messageLimit < $this->messageCount) {
-            return;
+            $this->emit('commandErrored', $e);
         }
 
-        if (microtime(true) <= $this->runtimeLimit) {
-            return;
-        }
-
-        throw new Exception\StopConsumer();
+        $this->emit('commandExecuted');
     }
 
     /**
@@ -122,7 +91,7 @@ class Consumer
      */
     public function shutdown()
     {
-        $this->runtimeLimit = $this->messageLimit = -1;
+        $this->run = false;
     }
 
     /**

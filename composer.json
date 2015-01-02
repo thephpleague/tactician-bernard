@@ -19,7 +19,8 @@
     "require": {
         "php": ">=5.4.0",
         "bernard/bernard": "dev-master",
-        "tactician/command-bus": "dev-master"
+        "tactician/command-bus": "dev-master",
+        "league/event": "~2.0.0"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.1.0",

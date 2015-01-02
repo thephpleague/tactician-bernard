@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Doris;
+namespace Doris\Exception;
 
 /**
  * Thrown when a command fails
