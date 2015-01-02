@@ -68,7 +68,7 @@ class Consumer
             return;
         }
 
-        $command = $this->getCommandFor($envelope);
+        $command = $this->getCommandFrom($envelope);
 
         try {
             $commandBus->execute($command);

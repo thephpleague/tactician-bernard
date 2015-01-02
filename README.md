@@ -62,17 +62,17 @@ $commandBus->execute($command);
 On the other side of the message queue you must set up a consumer:
 
 ``` php
-use Doris\ConsumingCommandBus;
+use Doris\Consumer;
 use Doris\Listener\CommandLimit;
 
 // ... create your inner commandBus
 
-$consumingCommandBus = new ConsumingCommandBus;
+$consumer = new Consumer;
 
 // execute maximum of 10 commands
-$consumingCommandBus->addListener(new CommandLimit(10));
+$consumer->addListener(new CommandLimit(10));
 
-$consumingCommandBus->consume($queue, $commandBus);
+$consumer->consume($queue, $commandBus);
 ```
 
 List of available listeners:
