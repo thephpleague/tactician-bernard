@@ -12,6 +12,7 @@
 namespace Doris;
 
 use Tactician\CommandBus\CommandBus;
+use Tactician\CommandBus\Command;
 use Bernard\Queue;
 use Bernard\Envelope;
 use Bernard\Message;
@@ -39,7 +40,7 @@ class RemoteCommandBus implements CommandBus
     /**
      * {@inheritdoc}
      */
-    public function execute($command)
+    public function execute(Command $command)
     {
         if (!$command instanceof Message) {
             $command = new CommandMessage($command);

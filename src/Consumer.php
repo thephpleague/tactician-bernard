@@ -88,7 +88,7 @@ class Consumer
      *
      * @param Envelope $envelope
      *
-     * @return object
+     * @return Command
      */
     protected function getCommandFrom(Envelope $envelope)
     {

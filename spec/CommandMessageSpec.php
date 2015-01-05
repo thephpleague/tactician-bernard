@@ -2,30 +2,29 @@
 
 namespace spec\Doris;
 
+use Tactician\CommandBus\Command;
 use PhpSpec\ObjectBehavior;
 
 class CommandMessageSpec extends ObjectBehavior
 {
-    protected $commandObject;
-
-    function let()
+    function let(Command $command)
     {
-        $this->beConstructedWith($this->commandObject = new \stdClass);
+        $this->beConstructedWith($command);
     }
 
     function it_is_initializable()
     {
         $this->shouldHaveType('Doris\CommandMessage');
-        $this->shouldHaveType('Bernard\Message');
+        $this->shouldImplement('Bernard\Message');
     }
 
-    function it_should_have_a_command()
+    function it_should_have_a_command(Command $command)
     {
-        $this->getCommand()->shouldReturn($this->commandObject);
+        $this->getCommand()->shouldReturn($command);
     }
 
-    function it_should_have_a_name()
+    function it_should_have_a_name(Command $command)
     {
-        $this->getName()->shouldReturn('stdClass');
+        $this->getName()->shouldReturn(get_class($command->getWrappedObject()));
     }
 }

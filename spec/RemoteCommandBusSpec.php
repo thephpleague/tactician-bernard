@@ -3,7 +3,7 @@
 namespace spec\Doris;
 
 use Bernard\Queue;
-use Doris\Stub\TestCommand;
+use Tactician\CommandBus\Command;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -20,7 +20,7 @@ class RemoteCommandBusSpec extends ObjectBehavior
         $this->shouldHaveType('Tactician\CommandBus\CommandBus');
     }
 
-    function it_should_allow_to_execute_a_command(Queue $queue, TestCommand $command)
+    function it_should_allow_to_execute_a_command(Queue $queue, Command $command)
     {
         $queue->enqueue(Argument::type('Bernard\Envelope'))->shouldBeCalled();
 

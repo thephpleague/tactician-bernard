@@ -12,6 +12,7 @@
 namespace Doris;
 
 use Bernard\Message;
+use Tactician\CommandBus\Command;
 
 /**
  * Message wrapper for Commands
@@ -21,14 +22,14 @@ use Bernard\Message;
 class CommandMessage implements Message
 {
     /**
-     * @var object
+     * @var Command
      */
     protected $command;
 
     /**
-     * @param object $command
+     * @param Command $command
      */
-    public function __construct($command)
+    public function __construct(Command $command)
     {
         $this->command = $command;
     }
@@ -36,7 +37,7 @@ class CommandMessage implements Message
     /**
      * Returns the command
      *
-     * @return object
+     * @return Command
      */
     public function getCommand()
     {
