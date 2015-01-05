@@ -17,10 +17,14 @@ class RemoteCommandBusSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Doris\RemoteCommandBus');
-        $this->shouldHaveType('Tactician\CommandBus\CommandBus');
     }
 
-    function it_should_allow_to_execute_a_command(Queue $queue, Command $command)
+    function it_is_a_command_bus()
+    {
+        $this->shouldImplement('Tactician\CommandBus\CommandBus');
+    }
+
+    function it_executes_a_command(Queue $queue, Command $command)
     {
         $queue->enqueue(Argument::type('Bernard\Envelope'))->shouldBeCalled();
 

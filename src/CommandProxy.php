@@ -15,11 +15,11 @@ use Bernard\Message;
 use Tactician\CommandBus\Command;
 
 /**
- * Message wrapper for Commands
+ * Message proxy for Commands
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class CommandMessage implements Message
+class CommandProxy implements Message
 {
     /**
      * @var Command

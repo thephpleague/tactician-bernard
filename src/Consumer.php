@@ -27,28 +27,42 @@ class Consumer
     use \League\Event\EmitterTrait;
 
     /**
+     * @var CommandBus
+     */
+    protected $commandBus;
+
+    /**
      * While this is true the loop will continue running
      *
      * @var boolean
      */
-    protected $run = true;
+    protected $consume = true;
+
+    /**
+     * @param CommandBus $commandBus
+     */
+    public function __construct(CommandBus $commandBus)
+    {
+        $this->commandBus = $commandBus;
+    }
 
     /**
      * Starts an infinite loop
      *
-     * @param Queue      $queue
-     * @param CommandBus $commandBus
+     * @param Queue $queue
      */
-    public function consume(Queue $queue, CommandBus $commandBus)
+    public function consume(Queue $queue)
     {
         $this->bind();
 
         $this->emit('consumerStarted');
         $consumerCycleEvent = new Event\ConsumerCycle($this);
 
-        while ($this->run) {
+        while ($this->consume) {
             try {
-                $this->doConsume($queue, $commandBus);
+                if ($envelope = $queue->dequeue()) {
+                    $this->process($queue, $envelope);
+                }
             } catch (Exception\StopConsumer $e) {
                 break;
             }
@@ -58,21 +72,17 @@ class Consumer
     }
 
     /**
-     * Does the actual consuming
+     * Process the message
      *
-     * @param Queue      $queue
-     * @param CommandBus $commandBus
+     * @param Queue    $queue
+     * @param Envelope $commandBus
      */
-    protected function doConsume(Queue $queue, CommandBus $commandBus)
+    protected function process(Queue $queue, Envelope $envelope)
     {
-        if (!$envelope = $queue->dequeue()) {
-            return;
-        }
-
         $command = $this->getCommandFrom($envelope);
 
         try {
-            $commandBus->execute($command);
+            $this->commandBus->execute($command);
             $queue->acknowledge($envelope);
         } catch (Exception\CommandFailed $e) {
             $this->emit('commandFailed', $e);
@@ -94,7 +104,7 @@ class Consumer
     {
         $command = $envelope->getMessage();
 
-        if ($command instanceof CommandMessage) {
+        if ($command instanceof CommandProxy) {
             $command = $command->getCommand();
         }
 
@@ -106,7 +116,7 @@ class Consumer
      */
     public function shutdown()
     {
-        $this->run = false;
+        $this->consume = false;
     }
 
     /**

@@ -11,11 +11,11 @@
 
 namespace Doris;
 
-use Tactician\CommandBus\CommandBus;
-use Tactician\CommandBus\Command;
-use Bernard\Queue;
 use Bernard\Envelope;
 use Bernard\Message;
+use Bernard\Queue;
+use Tactician\CommandBus\Command;
+use Tactician\CommandBus\CommandBus;
 
 /**
  * Sends the command to a remote location using message queues
@@ -43,7 +43,7 @@ class RemoteCommandBus implements CommandBus
     public function execute(Command $command)
     {
         if (!$command instanceof Message) {
-            $command = new CommandMessage($command);
+            $command = new CommandProxy($command);
         }
 
         $this->queue->enqueue(new Envelope($command));

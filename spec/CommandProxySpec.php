@@ -5,7 +5,7 @@ namespace spec\Doris;
 use Tactician\CommandBus\Command;
 use PhpSpec\ObjectBehavior;
 
-class CommandMessageSpec extends ObjectBehavior
+class CommandProxySpec extends ObjectBehavior
 {
     function let(Command $command)
     {
@@ -14,16 +14,20 @@ class CommandMessageSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Doris\CommandMessage');
+        $this->shouldHaveType('Doris\CommandProxy');
+    }
+
+    function it_is_a_message()
+    {
         $this->shouldImplement('Bernard\Message');
     }
 
-    function it_should_have_a_command(Command $command)
+    function it_has_a_command(Command $command)
     {
         $this->getCommand()->shouldReturn($command);
     }
 
-    function it_should_have_a_name(Command $command)
+    function it_has_a_name(Command $command)
     {
         $this->getName()->shouldReturn(get_class($command->getWrappedObject()));
     }
