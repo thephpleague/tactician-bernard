@@ -29,6 +29,11 @@ class TimeLimit implements ListenerProviderInterface
     protected $timeLimit;
 
     /**
+     * @var boolean
+     */
+    protected $initialized = false;
+
+    /**
      * @param integer $timeLimit
      */
     public function __construct($timeLimit)
@@ -41,18 +46,7 @@ class TimeLimit implements ListenerProviderInterface
      */
     public function provideListeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        $listenerAcceptor->addListener('consumerStarted', [$this, 'initializeLimitValue']);
         $listenerAcceptor->addListener('consumerCycle', [$this, 'check']);
-    }
-
-    /**
-     * Increase the limit with the actual time
-     *
-     * @param EventInterface $event
-     */
-    public function initializeLimitValue(EventInterface $event)
-    {
-        $this->timeLimit += microtime(true);
     }
 
     /**
@@ -62,7 +56,13 @@ class TimeLimit implements ListenerProviderInterface
      */
     public function check(ConsumerCycle $event)
     {
-        if ($this->timeLimit <= microtime(true)) {
+        if (!$this->initialized) {
+            $this->timeLimit += microtime(true);
+
+            $this->initialized = true;
+        }
+
+        if ($this->timeLimit < microtime(true)) {
             $event->stopConsumer();
         }
     }

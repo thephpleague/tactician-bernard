@@ -55,7 +55,6 @@ class Consumer
     {
         $this->bind();
 
-        $this->emit('consumerStarted');
         $consumerCycleEvent = new Event\ConsumerCycle($this);
 
         while ($this->consume) {
@@ -84,13 +83,13 @@ class Consumer
         try {
             $this->commandBus->execute($command);
             $queue->acknowledge($envelope);
+
+            $this->emit('commandExecuted');
         } catch (Exception\CommandFailed $e) {
             $this->emit('commandFailed', $e);
         } catch (\Exception $e) {
             $this->emit('commandErrored', $e);
         }
-
-        $this->emit('commandExecuted');
     }
 
     /**
