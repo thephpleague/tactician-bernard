@@ -42,7 +42,7 @@ class CommandLimit implements ListenerProviderInterface
      * @param integer $commandLimit
      * @param boolean $countFailures
      */
-    public function __construct($commandLimit = null, $countFailures = true)
+    public function __construct($commandLimit, $countFailures = true)
     {
         $this->commandLimit = $commandLimit;
         $this->countFailures = (bool) $countFailures;
@@ -53,11 +53,6 @@ class CommandLimit implements ListenerProviderInterface
      */
     public function provideListeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        // We don't have a limit
-        if (is_null($this->commandLimit)) {
-            return;
-        }
-
         $listenerAcceptor->addListener('consumerCycle', [$this, 'check']);
         $listenerAcceptor->addListener('commandExecuted', [$this, 'count']);
 

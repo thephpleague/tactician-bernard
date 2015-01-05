@@ -31,7 +31,7 @@ class TimeLimit implements ListenerProviderInterface
     /**
      * @param integer $timeLimit
      */
-    public function __construct($timeLimit = null)
+    public function __construct($timeLimit)
     {
         $this->timeLimit = $timeLimit;
     }
@@ -41,11 +41,6 @@ class TimeLimit implements ListenerProviderInterface
      */
     public function provideListeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        // We don't have a limit
-        if (is_null($this->timeLimit)) {
-            return;
-        }
-
         $listenerAcceptor->addListener('consumerStarted', [$this, 'initializeLimitValue']);
         $listenerAcceptor->addListener('consumerCycle', [$this, 'check']);
     }

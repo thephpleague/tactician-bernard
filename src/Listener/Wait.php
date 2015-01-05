@@ -36,7 +36,7 @@ class Wait implements ListenerProviderInterface
      * @param integer $wait
      * @param boolean $microSeconds
      */
-    public function __construct($wait = null, $microSeconds = false)
+    public function __construct($wait, $microSeconds = false)
     {
         $this->wait = $wait;
         $this->microSeconds = (bool) $microSeconds;
@@ -47,11 +47,6 @@ class Wait implements ListenerProviderInterface
      */
     public function provideListeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        // We don't have a wait timeout
-        if (is_null($this->wait)) {
-            return;
-        }
-
         $listenerAcceptor->addListener('consumerCycle', [$this, 'wait']);
     }
 
