@@ -66,7 +66,7 @@ class Consumer
      * Process the message
      *
      * @param Queue    $queue
-     * @param Envelope $commandBus
+     * @param Envelope $envelope
      */
     protected function process(Queue $queue, Envelope $envelope)
     {
