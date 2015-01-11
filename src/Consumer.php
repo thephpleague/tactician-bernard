@@ -51,8 +51,6 @@ class Consumer
      */
     public function consume(Queue $queue)
     {
-        $this->bind();
-
         $consumerCycleEvent = new Event\ConsumerCycle($this);
 
         while ($this->consume) {
