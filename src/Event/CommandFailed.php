@@ -11,7 +11,6 @@
 
 namespace Doris\Event;
 
-use League\Event\Event;
 use League\Tactician\CommandBus\Command;
 
 /**
@@ -19,17 +18,12 @@ use League\Tactician\CommandBus\Command;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class CommandFailed extends Event
+class CommandFailed extends CommandEvent
 {
     /**
      * {@inheritdoc}
      */
     protected $name = 'commandFailed';
-
-    /**
-     * @var Command
-     */
-    protected $command;
 
     /**
      * @var \Exception
@@ -42,18 +36,9 @@ class CommandFailed extends Event
      */
     public function __construct(Command $command, \Exception $exception)
     {
-        $this->command = $command;
         $this->exception = $exception;
-    }
 
-    /**
-     * Returns the command
-     *
-     * @return Command
-     */
-    public function getCommand()
-    {
-        return $this->command;
+        parent::__construct($command);
     }
 
     /**

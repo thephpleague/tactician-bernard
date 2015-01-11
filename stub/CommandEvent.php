@@ -9,17 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Doris\Event;
+namespace Doris\Stub;
+
+use Doris\Event\CommandEvent as Event;
 
 /**
- * Emitted when a command is executed
+ * Command Event Stub
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class CommandExecuted extends CommandEvent
+class CommandEvent extends Event
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected $name = 'commandExecuted';
+
 }

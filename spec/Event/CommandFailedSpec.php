@@ -17,14 +17,9 @@ class CommandFailedSpec extends ObjectBehavior
         $this->shouldHaveType('Doris\Event\CommandFailed');
     }
 
-    function it_is_an_event()
+    function it_is_a_command_event()
     {
-        $this->shouldImplement('League\Event\EventInterface');
-    }
-
-    public function it_has_a_command(Command $command)
-    {
-        $this->getCommand()->shouldreturn($command);
+        $this->shouldHaveType('Doris\Event\CommandEvent');
     }
 
     function it_has_an_exception(\Exception $e)
