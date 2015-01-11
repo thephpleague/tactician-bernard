@@ -15,8 +15,6 @@ use Bernard\Queue;
 use Bernard\Envelope;
 use League\Tactician\CommandBus\CommandBus;
 
-declare(ticks=1);
-
 /**
  * Consume commands from a queue and execute them
  *
