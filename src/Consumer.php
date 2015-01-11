@@ -103,7 +103,7 @@ class Consumer
     }
 
     /**
-     * Set limits to an invalid value to shut down on the next cycle
+     * Shutdown consumer on the next cycle
      */
     public function shutdown()
     {
