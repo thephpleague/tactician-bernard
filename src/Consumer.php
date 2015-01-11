@@ -109,14 +109,4 @@ class Consumer
     {
         $this->consume = false;
     }
-
-    /**
-     * Setup signal handlers for unix signals.
-     */
-    protected function bind()
-    {
-        pcntl_signal(SIGTERM, [$this, 'shutdown']);
-        pcntl_signal(SIGQUIT, [$this, 'shutdown']);
-        pcntl_signal(SIGINT,  [$this, 'shutdown']);
-    }
 }
