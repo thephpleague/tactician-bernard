@@ -25,6 +25,11 @@
             "Doris\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Doris\\Stub\\": "stub/"
+        }
+    },
     "config": {
         "bin-dir": "bin"
     },

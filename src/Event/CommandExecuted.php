@@ -9,14 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Doris\Exception;
+namespace Doris\Event;
 
 /**
- * Thrown when the consumer loop should stop
+ * Emitted when a command is executed
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class StopConsumer extends \Exception
+class CommandExecuted extends CommandEvent
 {
-
+    /**
+     * {@inheritdoc}
+     */
+    protected $name = 'commandExecuted';
 }

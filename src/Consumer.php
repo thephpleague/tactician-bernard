@@ -58,12 +58,8 @@ class Consumer
         $consumerCycleEvent = new Event\ConsumerCycle($this);
 
         while ($this->consume) {
-            try {
-                if ($envelope = $queue->dequeue()) {
-                    $this->process($queue, $envelope);
-                }
-            } catch (Exception\StopConsumer $e) {
-                break;
+            if ($envelope = $queue->dequeue()) {
+                $this->process($queue, $envelope);
             }
 
             $this->emit($consumerCycleEvent);
@@ -84,11 +80,9 @@ class Consumer
             $this->commandBus->execute($command);
             $queue->acknowledge($envelope);
 
-            $this->emit('commandExecuted');
-        } catch (Exception\CommandFailed $e) {
-            $this->emit('commandFailed', $e);
+            $this->emit(new Event\CommandExecuted($command));
         } catch (\Exception $e) {
-            $this->emit('commandErrored', $e);
+            $this->emit(new Event\CommandFailed($command, $e));
         }
     }
 

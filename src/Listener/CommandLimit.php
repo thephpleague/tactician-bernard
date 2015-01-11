@@ -59,7 +59,6 @@ class CommandLimit implements ListenerProviderInterface
         // Count failed commands as well
         if ($this->countFailures) {
             $listenerAcceptor->addListener('commandFailed', [$this, 'count']);
-            $listenerAcceptor->addListener('commandErrored', [$this, 'count']);
         }
     }
 

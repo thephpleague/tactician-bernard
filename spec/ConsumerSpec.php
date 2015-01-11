@@ -24,13 +24,6 @@ class ConsumerSpec extends ObjectBehavior
         $this->shouldHaveType('Doris\Consumer');
     }
 
-    function it_stops_when_stop_consumer_exception_thrown(Queue $queue)
-    {
-        $queue->dequeue()->willThrow('Doris\Exception\StopConsumer');
-
-        $this->consume($queue);
-    }
-
     function it_executes_a_command(Queue $queue, CommandBus $commandBus, Envelope $envelope, CommandProxy $commandProxy, Command $command)
     {
         $commandProxy->getCommand()->willReturn($command);
@@ -60,19 +53,6 @@ class ConsumerSpec extends ObjectBehavior
     }
 
     function it_handles_a_command_failure(Queue $queue, CommandBus $commandBus, Envelope $envelope, CommandProxy $commandProxy, Command $command)
-    {
-        $commandProxy->getCommand()->willReturn($command);
-        $envelope->getMessage()->willReturn($commandProxy);
-        $queue->dequeue()->willReturn($envelope);
-        $commandBus->execute($command)->willThrow(new CommandFailed($command));
-        $queue->acknowledge($envelope)->shouldNotBeCalled();
-
-        $this->useListenerProvider(new CommandLimit(1));
-
-        $this->consume($queue);
-    }
-
-    function it_handles_a_command_error(Queue $queue, CommandBus $commandBus, Envelope $envelope, CommandProxy $commandProxy, Command $command)
     {
         $commandProxy->getCommand()->willReturn($command);
         $envelope->getMessage()->willReturn($commandProxy);
