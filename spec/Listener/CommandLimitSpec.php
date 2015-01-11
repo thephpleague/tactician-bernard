@@ -29,7 +29,6 @@ class CommandLimitSpec extends ObjectBehavior
         $listenerAcceptor->addListener('consumerCycle', [$this, 'check'])->shouldBeCalled();
         $listenerAcceptor->addListener('commandExecuted', [$this, 'count'])->shouldBeCalled();
         $listenerAcceptor->addListener('commandFailed', [$this, 'count'])->shouldBeCalled();
-        $listenerAcceptor->addListener('commandErrored', [$this, 'count'])->shouldBeCalled();
 
         $this->provideListeners($listenerAcceptor);
     }
