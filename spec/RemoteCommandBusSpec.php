@@ -3,7 +3,7 @@
 namespace spec\Doris;
 
 use Bernard\Queue;
-use Tactician\CommandBus\Command;
+use League\Tactician\CommandBus\Command;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -21,7 +21,7 @@ class RemoteCommandBusSpec extends ObjectBehavior
 
     function it_is_a_command_bus()
     {
-        $this->shouldImplement('Tactician\CommandBus\CommandBus');
+        $this->shouldImplement('League\Tactician\CommandBus\CommandBus');
     }
 
     function it_executes_a_command(Queue $queue, Command $command)

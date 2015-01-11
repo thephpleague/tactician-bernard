@@ -2,7 +2,7 @@
 
 namespace spec\Doris;
 
-use Tactician\CommandBus\Command;
+use League\Tactician\CommandBus\Command;
 use PhpSpec\ObjectBehavior;
 
 class CommandProxySpec extends ObjectBehavior

@@ -13,7 +13,7 @@ namespace Doris;
 
 use Bernard\Queue;
 use Bernard\Envelope;
-use Tactician\CommandBus\CommandBus;
+use League\Tactician\CommandBus\CommandBus;
 
 declare(ticks=1);
 

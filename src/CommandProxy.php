@@ -12,7 +12,7 @@
 namespace Doris;
 
 use Bernard\Message;
-use Tactician\CommandBus\Command;
+use League\Tactician\CommandBus\Command;
 
 /**
  * Message proxy for Commands

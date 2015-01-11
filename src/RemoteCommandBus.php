@@ -14,8 +14,8 @@ namespace Doris;
 use Bernard\Envelope;
 use Bernard\Message;
 use Bernard\Queue;
-use Tactician\CommandBus\Command;
-use Tactician\CommandBus\CommandBus;
+use League\Tactician\CommandBus\Command;
+use League\Tactician\CommandBus\CommandBus;
 
 /**
  * Sends the command to a remote location using message queues

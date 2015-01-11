@@ -10,16 +10,10 @@
             "email": "mark.sagikazar@gmail.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/rosstuck/tactician.git"
-        }
-    ],
     "require": {
         "php": ">=5.4.0",
         "bernard/bernard": "dev-master",
-        "tactician/command-bus": "dev-master",
+        "league/tactician": "dev-master",
         "league/event": "~2.0.0"
     },
     "require-dev": {

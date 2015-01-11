@@ -8,7 +8,7 @@
 [![HHVM Status](https://img.shields.io/hhvm/indigophp/doris.svg?style=flat-square)](http://hhvm.h4cc.de/package/indigophp/doris)
 [![Total Downloads](https://img.shields.io/packagist/dt/indigophp/doris.svg?style=flat-square)](https://packagist.org/packages/indigophp/doris)
 
-**Doris is a remote command bus implementation based on [Bernard](http://bernardphp.com) and [Tactician](https://github.com/rosstuck/tactician).**
+**Doris is a remote command bus implementation based on [Bernard](http://bernardphp.com) and [Tactician](https://github.com/thephpleague/tactician).**
 
 
 ## Install
@@ -17,20 +17,6 @@ Via Composer
 
 ``` bash
 $ composer require indigophp/doris
-```
-
-
-### Temporary workaround
-
-Tactician is not yet released. Until it gets released, add this to the `composer.json`:
-
-``` json
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/rosstuck/tactician.git"
-    }
-]
 ```
 
 

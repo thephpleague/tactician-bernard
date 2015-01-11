@@ -7,8 +7,8 @@ use Doris\Exception\CommandFailed;
 use Doris\Listener\CommandLimit;
 use Bernard\Envelope;
 use Bernard\Queue;
-use Tactician\CommandBus\Command;
-use Tactician\CommandBus\CommandBus;
+use League\Tactician\CommandBus\Command;
+use League\Tactician\CommandBus\CommandBus;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
