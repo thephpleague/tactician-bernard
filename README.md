@@ -2,7 +2,7 @@
 
 [![Latest Version](https://img.shields.io/github/release/indigophp/doris.svg?style=flat-square)](https://github.com/indigophp/doris/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://img.shields.io/travis/indigophp/doris/develop.svg?style=flat-square)](https://travis-ci.org/indigophp/doris)
+[![Build Status](https://img.shields.io/travis/indigophp/doris.svg?style=flat-square)](https://travis-ci.org/indigophp/doris)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/indigophp/doris.svg?style=flat-square)](https://scrutinizer-ci.com/g/indigophp/doris)
 [![Quality Score](https://img.shields.io/scrutinizer/g/indigophp/doris.svg?style=flat-square)](https://scrutinizer-ci.com/g/indigophp/doris)
 [![HHVM Status](https://img.shields.io/hhvm/indigophp/doris.svg?style=flat-square)](http://hhvm.h4cc.de/package/indigophp/doris)
