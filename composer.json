@@ -14,12 +14,15 @@
         "php": ">=5.4.0",
         "bernard/bernard": "dev-master",
         "league/tactician": "dev-master",
-        "league/event": "~2.0.0",
-        "indigophp/tactician-event-decorator": "dev-develop"
+        "league/event": "~2.0.0"
     },
     "require-dev": {
+        "indigophp/tactician-event-decorator": "dev-develop",
         "phpspec/phpspec": "~2.1.0",
         "henrikbjorn/phpspec-code-coverage" : "~1.0.0"
+    },
+    "suggest": {
+        "indigophp/tactician-event-decorator": "Used for event-driven consuming logic"
     },
     "autoload": {
         "psr-4": {
