@@ -14,7 +14,8 @@
         "php": ">=5.4.0",
         "bernard/bernard": "dev-master",
         "league/tactician": "dev-master",
-        "league/event": "~2.0.0"
+        "league/event": "~2.0.0",
+        "indigophp/tactician-event-decorator": "dev-develop"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.1.0",
@@ -23,11 +24,6 @@
     "autoload": {
         "psr-4": {
             "Doris\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Doris\\Stub\\": "stub/"
         }
     },
     "config": {
