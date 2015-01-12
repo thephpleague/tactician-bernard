@@ -12,7 +12,6 @@
 namespace Doris;
 
 use Bernard\Queue;
-use Bernard\Envelope;
 use League\Tactician\CommandBus\CommandBus;
 
 /**
@@ -22,8 +21,6 @@ use League\Tactician\CommandBus\CommandBus;
  */
 class Consumer
 {
-    use \League\Event\EmitterTrait;
-
     /**
      * @var CommandBus
      */
@@ -51,53 +48,28 @@ class Consumer
      */
     public function consume(Queue $queue)
     {
-        $consumerCycleEvent = new Event\ConsumerCycle($this);
-
         while ($this->consume) {
-            if ($envelope = $queue->dequeue()) {
-                $this->process($queue, $envelope);
+            $this->doConsume($queue);
+        }
+    }
+
+    /**
+     * Does the actual consuming logic separated from the loop
+     *
+     * @param Queue $queue
+     */
+    protected function doConsume(Queue $queue)
+    {
+        if ($envelope = $queue->dequeue()) {
+            $command = $envelope->getMessage();
+
+            if ($command instanceof CommandProxy) {
+                $command = $command->getCommand();
             }
 
-            $this->emit($consumerCycleEvent);
-        }
-    }
-
-    /**
-     * Process the message
-     *
-     * @param Queue    $queue
-     * @param Envelope $envelope
-     */
-    protected function process(Queue $queue, Envelope $envelope)
-    {
-        $command = $this->getCommandFrom($envelope);
-
-        try {
             $this->commandBus->execute($command);
             $queue->acknowledge($envelope);
-
-            $this->emit(new Event\CommandExecuted($command));
-        } catch (\Exception $e) {
-            $this->emit(new Event\CommandFailed($command, $e));
         }
-    }
-
-    /**
-     * Returns the command from the envelope
-     *
-     * @param Envelope $envelope
-     *
-     * @return Command
-     */
-    protected function getCommandFrom(Envelope $envelope)
-    {
-        $command = $envelope->getMessage();
-
-        if ($command instanceof CommandProxy) {
-            $command = $command->getCommand();
-        }
-
-        return $command;
     }
 
     /**
