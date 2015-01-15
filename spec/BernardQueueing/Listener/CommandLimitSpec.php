@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\Doris\Listener;
+namespace spec\League\Tactician\BernardQueueing\Listener;
 
-use Doris\Event\ConsumerCycle;
 use League\Event\EventInterface;
 use League\Event\ListenerAcceptorInterface;
+use League\Tactician\BernardQueueing\Event\ConsumerCycle;
 use PhpSpec\ObjectBehavior;
 
 class CommandLimitSpec extends ObjectBehavior
@@ -16,7 +16,7 @@ class CommandLimitSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Doris\Listener\CommandLimit');
+        $this->shouldHaveType('League\Tactician\BernardQueueing\Listener\CommandLimit');
     }
 
     function it_is_a_listener_provider()

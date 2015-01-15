@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\Doris;
+namespace spec\League\Tactician\BernardQueueing;
 
-use League\Tactician\CommandBus\Command;
+use League\Tactician\Command;
 use PhpSpec\ObjectBehavior;
 
 class CommandProxySpec extends ObjectBehavior
@@ -14,7 +14,7 @@ class CommandProxySpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Doris\CommandProxy');
+        $this->shouldHaveType('League\Tactician\BernardQueueing\CommandProxy');
     }
 
     function it_is_a_message()

@@ -1,5 +1,4 @@
-/bin
-/build
-/vendor
+build/
+vendor/
 composer.lock
 phpspec.yml

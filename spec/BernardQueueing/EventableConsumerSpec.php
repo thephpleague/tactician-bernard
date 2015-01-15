@@ -1,15 +1,15 @@
 <?php
 
-namespace spec\Doris;
+namespace spec\League\Tactician\BernardQueueing;
 
-use Doris\CommandProxy;
-use Doris\Listener\CommandLimit;
 use Bernard\Envelope;
 use Bernard\Queue;
 use League\Event\EmitterInterface;
-use League\Tactician\CommandBus\Command;
-use League\Tactician\CommandBus\CommandBus;
-use League\Tactician\CommandBus\EventableCommandBus;
+use League\Tactician\BernardQueueing\CommandProxy;
+use League\Tactician\BernardQueueing\Listener\CommandLimit;
+use League\Tactician\Command;
+use League\Tactician\CommandBus;
+use League\Tactician\EventableCommandBus;
 use PhpSpec\ObjectBehavior;
 
 class EventableConsumerSpec extends ObjectBehavior
@@ -23,8 +23,8 @@ class EventableConsumerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Doris\EventableConsumer');
-        $this->shouldHaveType('Doris\Consumer');
+        $this->shouldHaveType('League\Tactician\BernardQueueing\EventableConsumer');
+        $this->shouldHaveType('League\Tactician\BernardQueueing\Consumer');
     }
 
     function it_has_an_emitter()

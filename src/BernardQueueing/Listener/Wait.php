@@ -1,19 +1,19 @@
 <?php
 
 /*
- * This file is part of the Indigo Doris package.
+ * This file is part of the Tactician Bernard Queueing package.
  *
- * (c) Indigo Development Team
+ * (c) Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Doris\Listener;
+namespace League\Tactician\BernardQueueing\Listener;
 
-use Doris\Event\ConsumerCycle;
-use League\Event\ListenerProviderInterface;
 use League\Event\ListenerAcceptorInterface;
+use League\Event\ListenerProviderInterface;
+use League\Tactician\BernardQueueing\Event\ConsumerCycle;
 
 /**
  * Add a wait time to the consumer to slow down the infinite loop

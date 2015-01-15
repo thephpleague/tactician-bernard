@@ -1,18 +1,18 @@
 <?php
 
 /*
- * This file is part of the Indigo Doris package.
+ * This file is part of the Tactician Bernard Queueing package.
  *
- * (c) Indigo Development Team
+ * (c) Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Doris\Event;
+namespace League\Tactician\BernardQueueing\Event;
 
-use Doris\Consumer;
 use League\Event\Event;
+use League\Tactician\BernardQueueing\Consumer;
 
 /**
  * Emitted at the end of every cycle of consumer

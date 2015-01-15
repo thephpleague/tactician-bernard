@@ -1,13 +1,13 @@
 <?php
 
-namespace spec\Doris;
+namespace spec\League\Tactician;
 
 use Bernard\Queue;
-use League\Tactician\CommandBus\Command;
+use League\Tactician\Command;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class RemoteCommandBusSpec extends ObjectBehavior
+class BernardQueueingCommandBusSpec extends ObjectBehavior
 {
     function let(Queue $queue)
     {
@@ -16,12 +16,12 @@ class RemoteCommandBusSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Doris\RemoteCommandBus');
+        $this->shouldHaveType('League\Tactician\BernardQueueingCommandBus');
     }
 
     function it_is_a_command_bus()
     {
-        $this->shouldImplement('League\Tactician\CommandBus\CommandBus');
+        $this->shouldImplement('League\Tactician\CommandBus');
     }
 
     function it_executes_a_command(Queue $queue, Command $command)

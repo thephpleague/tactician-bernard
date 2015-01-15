@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\Doris;
+namespace spec\League\Tactician\BernardQueueing;
 
-use Doris\CommandProxy;
 use Bernard\Envelope;
 use Bernard\Queue;
-use League\Tactician\CommandBus\Command;
-use League\Tactician\CommandBus\CommandBus;
+use League\Tactician\BernardQueueing\CommandProxy;
+use League\Tactician\Command;
+use League\Tactician\CommandBus;
 use PhpSpec\ObjectBehavior;
 
 class ConsumerSpec extends ObjectBehavior
@@ -18,7 +18,7 @@ class ConsumerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Doris\Consumer');
+        $this->shouldHaveType('League\Tactician\BernardQueueing\Consumer');
     }
 
     function it_executes_a_command(Queue $queue, CommandBus $commandBus, Envelope $envelope, CommandProxy $commandProxy, Command $command)

@@ -1,28 +1,29 @@
 <?php
 
 /*
- * This file is part of the Indigo Doris package.
+ * This file is part of the Tactician Bernard Queueing package.
  *
- * (c) Indigo Development Team
+ * (c) Márk Sági-Kazár <mark.sagikazar@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Doris;
+namespace League\Tactician;
 
 use Bernard\Envelope;
 use Bernard\Message;
 use Bernard\Queue;
-use League\Tactician\CommandBus\Command;
-use League\Tactician\CommandBus\CommandBus;
+use League\Tactician\BernardQueueing\CommandProxy;
+use League\Tactician\Command;
+use League\Tactician\CommandBus;
 
 /**
  * Sends the command to a remote location using message queues
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class RemoteCommandBus implements CommandBus
+class BernardQueueingCommandBus implements CommandBus
 {
     /**
      * @var Queue

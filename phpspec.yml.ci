@@ -1,7 +1,7 @@
 suites:
-  doris_suite:
-    namespace: Doris
-    psr4_prefix: Doris
+  tactician_suite:
+    namespace: League\Tactician
+    psr4_prefix: League\Tactician
 extensions:
   - PhpSpec\Extension\CodeCoverageExtension
 formatter.name: pretty

@@ -1,9 +1,9 @@
 {
-    "name": "indigophp/doris",
-    "description": "Doris is a remote command bus implementation based on Bernard and Tactician",
+    "name": "league/tactician-bernard-queueing",
+    "description": "Queueing command bus plugin for Tactician based on Bernard",
     "license": "MIT",
-    "keywords": ["doris", "bernard", "tactician", "command-bus"],
-    "homepage": "https://indigophp.com",
+    "keywords": ["bernard", "tactician", "command-bus"],
+    "homepage": "http://tactician.thephpleague.com",
     "authors": [
         {
             "name": "Márk Sági-Kazár",
@@ -11,22 +11,27 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "bernard/bernard": "dev-master",
+        "php": ">=5.5.0",
+        "bernard/bernard": "1.0.*@dev",
         "league/tactician": "dev-master",
         "league/event": "~2.0.0"
     },
     "require-dev": {
-        "indigophp/tactician-event-decorator": "dev-develop",
+        "league/tactician-command-events": "0.1.0.*@dev",
         "phpspec/phpspec": "~2.1.0",
         "henrikbjorn/phpspec-code-coverage" : "~1.0.0"
     },
     "suggest": {
-        "indigophp/tactician-event-decorator": "Used for event-driven consuming logic"
+        "league/tactician-command-events": "Used for event-driven consuming logic"
     },
     "autoload": {
         "psr-4": {
-            "Doris\\": "src/"
+            "League\\Tactician\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.0-dev"
         }
     },
     "prefer-stable": true,
