@@ -9,21 +9,20 @@
  * file that was distributed with this source code.
  */
 
-namespace League\Tactician;
+namespace League\Tactician\BernardQueueing;
 
 use Bernard\Envelope;
 use Bernard\Message;
 use Bernard\Queue;
-use League\Tactician\BernardQueueing\CommandProxy;
 use League\Tactician\Command;
-use League\Tactician\CommandBus;
+use League\Tactician\Middleware;
 
 /**
  * Sends the command to a remote location using message queues
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class BernardQueueingCommandBus implements CommandBus
+class QueueMiddleware implements Middleware
 {
     /**
      * @var Queue
@@ -41,12 +40,14 @@ class BernardQueueingCommandBus implements CommandBus
     /**
      * {@inheritdoc}
      */
-    public function execute(Command $command)
+    public function execute(Command $command, callable $next)
     {
-        if (!$command instanceof Message) {
-            $command = new CommandProxy($command);
+        if ($command instanceof Message) {
+            $this->queue->enqueue(new Envelope($command));
+
+            return;
         }
 
-        $this->queue->enqueue(new Envelope($command));
+        $next($command);
     }
 }

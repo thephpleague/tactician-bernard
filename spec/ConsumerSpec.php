@@ -4,8 +4,7 @@ namespace spec\League\Tactician\BernardQueueing;
 
 use Bernard\Envelope;
 use Bernard\Queue;
-use League\Tactician\BernardQueueing\CommandProxy;
-use League\Tactician\Command;
+use League\Tactician\BernardQueueing\QueueableCommand;
 use League\Tactician\CommandBus;
 use PhpSpec\ObjectBehavior;
 
@@ -21,11 +20,10 @@ class ConsumerSpec extends ObjectBehavior
         $this->shouldHaveType('League\Tactician\BernardQueueing\Consumer');
     }
 
-    function it_executes_a_command(Queue $queue, CommandBus $commandBus, Envelope $envelope, CommandProxy $commandProxy, Command $command)
+    function it_executes_a_command(Queue $queue, CommandBus $commandBus, Envelope $envelope, QueueableCommand $command)
     {
         $that = $this;
-        $commandProxy->getCommand()->willReturn($command);
-        $envelope->getMessage()->willReturn($commandProxy);
+        $envelope->getMessage()->willReturn($command);
         $queue->dequeue()->will(function ($args) use($that, $envelope) {
             $that->shutdown();
 

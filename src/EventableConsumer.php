@@ -13,6 +13,7 @@ namespace League\Tactician\BernardQueueing;
 
 use Bernard\Queue;
 use League\Event\EmitterInterface;
+use League\Event\EmitterAwareInterface;
 use League\Event\EmitterTrait;
 use League\Tactician\EventableCommandBus;
 
@@ -21,7 +22,7 @@ use League\Tactician\EventableCommandBus;
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class EventableConsumer extends Consumer
+class EventableConsumer extends Consumer implements EmitterAwareInterface
 {
     use EmitterTrait;
 
@@ -45,7 +46,7 @@ class EventableConsumer extends Consumer
         while ($this->consume) {
             $this->doConsume($queue);
 
-            $this->emit($consumerCycleEvent);
+            $this->getEmitter()->emit($consumerCycleEvent);
         }
     }
 

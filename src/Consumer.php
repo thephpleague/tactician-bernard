@@ -63,9 +63,7 @@ class Consumer
         if ($envelope = $queue->dequeue()) {
             $command = $envelope->getMessage();
 
-            if ($command instanceof CommandProxy) {
-                $command = $command->getCommand();
-            }
+            // TODO: some verification that a Command instance is returned
 
             $this->commandBus->execute($command);
             $queue->acknowledge($envelope);
