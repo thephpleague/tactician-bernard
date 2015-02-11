@@ -9,10 +9,10 @@
  * file that was distributed with this source code.
  */
 
-namespace League\Tactician\BernardQueueing\Event;
+namespace League\Tactician\Bernard\Event;
 
 use League\Event\Event;
-use League\Tactician\BernardQueueing\Consumer;
+use League\Tactician\Bernard\Consumer;
 
 /**
  * Emitted at the end of every cycle of consumer

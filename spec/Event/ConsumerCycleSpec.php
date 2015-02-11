@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\League\Tactician\BernardQueueing\Event;
+namespace spec\League\Tactician\Bernard\Event;
 
-use League\Tactician\BernardQueueing\Consumer;
+use League\Tactician\Bernard\Consumer;
 use PhpSpec\ObjectBehavior;
 
 class ConsumerCycleSpec extends ObjectBehavior
@@ -14,7 +14,7 @@ class ConsumerCycleSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('League\Tactician\BernardQueueing\Event\ConsumerCycle');
+        $this->shouldHaveType('League\Tactician\Bernard\Event\ConsumerCycle');
     }
 
     function it_is_an_event()

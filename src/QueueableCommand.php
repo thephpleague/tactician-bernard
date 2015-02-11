@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace League\Tactician\BernardQueueing;
+namespace League\Tactician\Bernard;
 
 use Bernard\Message;
 use League\Tactician\Command;

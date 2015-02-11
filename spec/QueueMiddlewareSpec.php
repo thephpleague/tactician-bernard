@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\League\Tactician\BernardQueueing;
+namespace spec\League\Tactician\Bernard;
 
 use Bernard\Queue;
 use League\Tactician\Command;
-use League\Tactician\BernardQueueing\QueueableCommand;
+use League\Tactician\Bernard\QueueableCommand;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -17,7 +17,7 @@ class QueueMiddlewareSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('League\Tactician\BernardQueueing\QueueMiddleware');
+        $this->shouldHaveType('League\Tactician\Bernard\QueueMiddleware');
     }
 
     function it_is_a_middleware()

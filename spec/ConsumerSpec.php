@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\League\Tactician\BernardQueueing;
+namespace spec\League\Tactician\Bernard;
 
 use Bernard\Envelope;
 use Bernard\Queue;
-use League\Tactician\BernardQueueing\QueueableCommand;
+use League\Tactician\Bernard\QueueableCommand;
 use League\Tactician\CommandBus;
 use PhpSpec\ObjectBehavior;
 
@@ -17,7 +17,7 @@ class ConsumerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('League\Tactician\BernardQueueing\Consumer');
+        $this->shouldHaveType('League\Tactician\Bernard\Consumer');
     }
 
     function it_executes_a_command(Queue $queue, CommandBus $commandBus, Envelope $envelope, QueueableCommand $command)

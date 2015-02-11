@@ -1,9 +1,9 @@
 <?php
 
-namespace spec\League\Tactician\BernardQueueing\Listener;
+namespace spec\League\Tactician\Bernard\Listener;
 
 use League\Event\ListenerAcceptorInterface;
-use League\Tactician\BernardQueueing\Event\ConsumerCycle;
+use League\Tactician\Bernard\Event\ConsumerCycle;
 use PhpSpec\ObjectBehavior;
 
 class WaitSpec extends ObjectBehavior
@@ -15,7 +15,7 @@ class WaitSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('League\Tactician\BernardQueueing\Listener\Wait');
+        $this->shouldHaveType('League\Tactician\Bernard\Listener\Wait');
     }
 
     function it_is_a_listener_provider()

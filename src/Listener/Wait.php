@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace League\Tactician\BernardQueueing\Listener;
+namespace League\Tactician\Bernard\Listener;
 
 use League\Event\ListenerAcceptorInterface;
 use League\Event\ListenerProviderInterface;
-use League\Tactician\BernardQueueing\Event\ConsumerCycle;
+use League\Tactician\Bernard\Event\ConsumerCycle;
 
 /**
  * Add a wait time to the consumer to slow down the infinite loop

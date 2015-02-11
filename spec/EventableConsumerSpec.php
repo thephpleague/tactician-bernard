@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\League\Tactician\BernardQueueing;
+namespace spec\League\Tactician\Bernard;
 
 use Bernard\Envelope;
 use Bernard\Queue;
 use League\Event\EmitterInterface;
-use League\Tactician\BernardQueueing\QueueableCommand;
-use League\Tactician\BernardQueueing\Listener\CommandLimit;
+use League\Tactician\Bernard\QueueableCommand;
+use League\Tactician\Bernard\Listener\CommandLimit;
 use League\Tactician\CommandBus;
 use League\Tactician\EventableCommandBus;
 use PhpSpec\ObjectBehavior;
@@ -22,8 +22,8 @@ class EventableConsumerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('League\Tactician\BernardQueueing\EventableConsumer');
-        $this->shouldHaveType('League\Tactician\BernardQueueing\Consumer');
+        $this->shouldHaveType('League\Tactician\Bernard\EventableConsumer');
+        $this->shouldHaveType('League\Tactician\Bernard\Consumer');
     }
 
     function it_is_emitter_aware()

@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace League\Tactician\BernardQueueing\Listener;
+namespace League\Tactician\Bernard\Listener;
 
 use League\Event\EventInterface;
 use League\Event\ListenerAcceptorInterface;
 use League\Event\ListenerProviderInterface;
-use League\Tactician\BernardQueueing\Event\ConsumerCycle;
+use League\Tactician\Bernard\Event\ConsumerCycle;
 
 /**
  * Stops the consumer when it reaches the command limit

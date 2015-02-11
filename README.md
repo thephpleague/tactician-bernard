@@ -33,12 +33,12 @@ You can run your consumer directly using your application, however you should av
 To send a command to it's destination, simply create a remote executing command bus, and use it like you would use any other:
 
 ``` php
-use League\Tactician\BernardQueueingCommandBus;
+use League\Tactician\Bernard\QueueingCommandBus;
 
 // ...create a Bernard\Queue instance
 // make sure to add the appropriate serializers
 
-$commandBus = new BernardQueueingCommandBus($queue);
+$commandBus = new QueueingCommandBus($queue);
 
 $commandBus->execute($command);
 ```
@@ -49,8 +49,8 @@ $commandBus->execute($command);
 On the other side of the message queue you must set up a consumer:
 
 ``` php
-use League\Tactician\BernardQueueing\Consumer;
-use League\Tactician\BernardQueueing\Listener\CommandLimit;
+use League\Tactician\Bernard\Consumer;
+use League\Tactician\Bernard\Listener\CommandLimit;
 
 // ... create your inner CommandBus
 
@@ -65,8 +65,8 @@ $consumer->consume($queue);
 You can also use some event-driven logic:
 
 ``` php
-use League\Tactician\BernardQueueing\EventableConsumer;
-use League\Tactician\BernardQueueing\Listener\CommandLimit;
+use League\Tactician\Bernard\EventableConsumer;
+use League\Tactician\Bernard\Listener\CommandLimit;
 
 // ... create your inner EventableCommandBus
 
