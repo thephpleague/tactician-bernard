@@ -48,6 +48,6 @@ class QueueMiddleware implements Middleware
             return;
         }
 
-        $next($command);
+        return $next($command);
     }
 }
