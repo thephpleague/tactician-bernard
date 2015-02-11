@@ -10,14 +10,15 @@ use League\Tactician\Bernard\Listener\CommandLimit;
 use League\Tactician\CommandBus;
 use League\Tactician\EventableCommandBus;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 class EventableConsumerSpec extends ObjectBehavior
 {
-    function let(CommandBus $commandBus)
+    function let(CommandBus $commandBus, EmitterInterface $emitter)
     {
         $commandBus = new EventableCommandBus($commandBus->getWrappedObject());
 
-        $this->beConstructedWith($commandBus);
+        $this->beConstructedWith($commandBus, $emitter);
     }
 
     function it_is_initializable()
@@ -26,31 +27,17 @@ class EventableConsumerSpec extends ObjectBehavior
         $this->shouldHaveType('League\Tactician\Bernard\Consumer');
     }
 
-    function it_is_emitter_aware()
-    {
-        $this->shouldImplement('League\Event\EmitterAwareInterface');
-    }
-
-    function it_has_an_emitter()
-    {
-        $this->getEmitter()->shouldHaveType('League\Event\EmitterInterface');
-    }
-
-    function it_accepts_an_emitter(EmitterInterface $emitter)
-    {
-        $this->setEmitter($emitter);
-
-        $this->getEmitter()->shouldReturn($emitter);
-    }
-
-    function it_executes_a_command(Queue $queue, CommandBus $commandBus, Envelope $envelope, QueueableCommand $command)
+    function it_executes_a_command(Queue $queue, CommandBus $commandBus, Envelope $envelope, QueueableCommand $command, EmitterInterface $emitter)
     {
         $envelope->getMessage()->willReturn($command);
         $queue->dequeue()->willReturn($envelope);
         $commandBus->execute($command)->shouldBeCalled();
         $queue->acknowledge($envelope)->shouldBeCalled();
 
-        $this->useListenerProvider(new CommandLimit(1));
+        $that = $this;
+        $emitter->emit(Argument::type('League\Tactician\Bernard\Event\ConsumerCycle'))->will(function() use($that) {
+            $that->shutdown();
+        });
 
         $this->consume($queue);
     }

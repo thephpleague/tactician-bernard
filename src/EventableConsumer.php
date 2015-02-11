@@ -13,24 +13,27 @@ namespace League\Tactician\Bernard;
 
 use Bernard\Queue;
 use League\Event\EmitterInterface;
-use League\Event\EmitterAwareInterface;
-use League\Event\EmitterTrait;
-use League\Tactician\EventableCommandBus;
+use League\Tactician\CommandBus;
 
 /**
  * Provides an easy, event-driven was to consume and execute commands
  *
  * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
-class EventableConsumer extends Consumer implements EmitterAwareInterface
+class EventableConsumer extends Consumer
 {
-    use EmitterTrait;
+    /**
+     * @var EmitterInterface
+     */
+    protected $emitter;
 
     /**
-     * @param EventableCommandBus $commandBus
+     * @param CommandBus $commandBus
      */
-    public function __construct(EventableCommandBus $commandBus)
+    public function __construct(CommandBus $commandBus, EmitterInterface $emitter)
     {
+        $this->emitter = $emitter;
+
         parent::__construct($commandBus);
     }
 
@@ -46,23 +49,7 @@ class EventableConsumer extends Consumer implements EmitterAwareInterface
         while ($this->consume) {
             $this->doConsume($queue);
 
-            $this->getEmitter()->emit($consumerCycleEvent);
+            $this->emitter->emit($consumerCycleEvent);
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEmitter()
-    {
-        return $this->commandBus->getEmitter();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setEmitter(EmitterInterface $emitter = null)
-    {
-        return $this->commandBus->setEmitter($emitter);
     }
 }
