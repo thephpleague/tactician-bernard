@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Tactician Bernard Queueing package.
- *
- * (c) Márk Sági-Kazár <mark.sagikazar@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace League\Tactician\Bernard\Event;
 
 use League\Event\Event;
@@ -16,8 +7,6 @@ use League\Tactician\Bernard\Consumer;
 
 /**
  * Emitted at the end of every cycle of consumer
- *
- * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
 class ConsumerCycle extends Event
 {

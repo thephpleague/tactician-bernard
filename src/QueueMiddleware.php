@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Tactician Bernard Queueing package.
- *
- * (c) Márk Sági-Kazár <mark.sagikazar@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace League\Tactician\Bernard;
 
 use Bernard\Envelope;
@@ -19,8 +10,6 @@ use League\Tactician\Middleware;
 
 /**
  * Sends the command to a remote location using message queues
- *
- * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
 class QueueMiddleware implements Middleware
 {

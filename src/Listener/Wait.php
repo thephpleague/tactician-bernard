@@ -1,14 +1,5 @@
 <?php
 
-/*
- * This file is part of the Tactician Bernard Queueing package.
- *
- * (c) Márk Sági-Kazár <mark.sagikazar@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace League\Tactician\Bernard\Listener;
 
 use League\Event\ListenerAcceptorInterface;
@@ -17,8 +8,6 @@ use League\Tactician\Bernard\Event\ConsumerCycle;
 
 /**
  * Add a wait time to the consumer to slow down the infinite loop
- *
- * @author Márk Sági-Kazár <mark.sagikazar@gmail.com>
  */
 class Wait implements ListenerProviderInterface
 {
