@@ -3,13 +3,12 @@
 namespace League\Tactician\Bernard\Listener;
 
 use League\Event\ListenerAcceptorInterface;
-use League\Event\ListenerProviderInterface;
-use League\Tactician\Bernard\Event\ConsumerCycle;
+use League\Tactician\CommandEvents\CommandEvent;
 
 /**
  * Add a wait time to the consumer to slow down the infinite loop
  */
-class Wait implements ListenerProviderInterface
+class Wait extends ConsumerAware
 {
     /**
      * @var integer
@@ -36,15 +35,16 @@ class Wait implements ListenerProviderInterface
      */
     public function provideListeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        $listenerAcceptor->addListener('consumerCycle', [$this, 'wait']);
+        $listenerAcceptor->addListener('commandExecuted', [$this, 'handle']);
+        $listenerAcceptor->addListener('commandFailed', [$this, 'handle']);
     }
 
     /**
      * Wait for the given time
      *
-     * @param ConsumerCycle $event
+     * @param CommandEvent $event
      */
-    public function wait(ConsumerCycle $event)
+    public function wait(CommandEvent $event)
     {
         if ($this->microSeconds) {
             usleep($this->wait);

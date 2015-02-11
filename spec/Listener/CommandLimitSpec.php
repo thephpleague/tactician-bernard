@@ -2,9 +2,9 @@
 
 namespace spec\League\Tactician\Bernard\Listener;
 
-use League\Event\EventInterface;
 use League\Event\ListenerAcceptorInterface;
-use League\Tactician\Bernard\Event\ConsumerCycle;
+use League\Tactician\CommandEvents\CommandEvent;
+use League\Tactician\Bernard\Consumer;
 use PhpSpec\ObjectBehavior;
 
 class CommandLimitSpec extends ObjectBehavior
@@ -26,9 +26,8 @@ class CommandLimitSpec extends ObjectBehavior
 
     function it_provides_listeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        $listenerAcceptor->addListener('consumerCycle', [$this, 'check'])->shouldBeCalled();
-        $listenerAcceptor->addListener('commandExecuted', [$this, 'count'])->shouldBeCalled();
-        $listenerAcceptor->addListener('commandFailed', [$this, 'count'])->shouldBeCalled();
+        $listenerAcceptor->addListener('commandExecuted', [$this, 'handle'])->shouldBeCalled();
+        $listenerAcceptor->addListener('commandFailed', [$this, 'handle'])->shouldBeCalled();
 
         $this->provideListeners($listenerAcceptor);
     }
@@ -37,25 +36,29 @@ class CommandLimitSpec extends ObjectBehavior
     {
         $this->beConstructedWith(1, false);
 
-        $listenerAcceptor->addListener('consumerCycle', [$this, 'check'])->shouldBeCalled();
-        $listenerAcceptor->addListener('commandExecuted', [$this, 'count'])->shouldBeCalled();
+        $listenerAcceptor->addListener('commandExecuted', [$this, 'handle'])->shouldBeCalled();
 
         $this->provideListeners($listenerAcceptor);
     }
 
-    function it_checks_whether_consumer_should_run(ConsumerCycle $event)
+    function it_checks_whether_consumer_should_run(CommandEvent $event, Consumer $consumer)
     {
-        $event->stopConsumer()->shouldNotBeCalled();
+        $this->beConstructedWith(2);
+        $this->setConsumer($consumer);
 
-        $this->check($event);
+        $consumer->shutdown()->shouldNotBeCalled();
+
+        $this->handle($event);
     }
 
-    function it_checks_whether_consumer_should_stop(EventInterface $countEvent, ConsumerCycle $cycleEvent)
+    function it_checks_whether_consumer_should_stop(CommandEvent $event, Consumer $consumer)
     {
-        $this->count($countEvent);
+        $this->setConsumer($consumer);
 
-        $cycleEvent->stopConsumer()->shouldBeCalled();
+        $this->handle($event);
 
-        $this->check($cycleEvent);
+        $consumer->shutdown()->shouldBeCalled();
+
+        $this->handle($event);
     }
 }

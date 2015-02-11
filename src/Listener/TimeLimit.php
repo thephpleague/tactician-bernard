@@ -2,15 +2,13 @@
 
 namespace League\Tactician\Bernard\Listener;
 
-use League\Event\EventInterface;
 use League\Event\ListenerAcceptorInterface;
-use League\Event\ListenerProviderInterface;
-use League\Tactician\Bernard\Event\ConsumerCycle;
+use League\Tactician\CommandEvents\CommandEvent;
 
 /**
  * Stops the consumer when it reaches the time limit
  */
-class TimeLimit implements ListenerProviderInterface
+class TimeLimit extends ConsumerAware
 {
     /**
      * @var integer
@@ -35,15 +33,16 @@ class TimeLimit implements ListenerProviderInterface
      */
     public function provideListeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        $listenerAcceptor->addListener('consumerCycle', [$this, 'check']);
+        $listenerAcceptor->addListener('commandExecuted', [$this, 'handle']);
+        $listenerAcceptor->addListener('commandFailed', [$this, 'handle']);
     }
 
     /**
      * Check if the consumer passed the limit
      *
-     * @param ConsumerCycle $event
+     * @param CommandEvent $event
      */
-    public function check(ConsumerCycle $event)
+    public function handle(CommandEvent $event)
     {
         if (!$this->initialized) {
             $this->timeLimit += microtime(true);
@@ -52,7 +51,7 @@ class TimeLimit implements ListenerProviderInterface
         }
 
         if ($this->timeLimit < microtime(true)) {
-            $event->stopConsumer();
+            $this->stopConsumer();
         }
     }
 }
