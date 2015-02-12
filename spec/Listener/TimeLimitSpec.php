@@ -9,9 +9,9 @@ use PhpSpec\ObjectBehavior;
 
 class TimeLimitSpec extends ObjectBehavior
 {
-    function let()
+    function let(Consumer $consumer)
     {
-        $this->beConstructedWith(1);
+        $this->beConstructedWith($consumer, 1);
     }
 
     function it_is_initializable()
@@ -32,20 +32,18 @@ class TimeLimitSpec extends ObjectBehavior
         $this->provideListeners($listenerAcceptor);
     }
 
-    function it_checks_whether_consumer_should_run(CommandEvent $event, Consumer $consumer)
+    function it_checks_whether_consumer_should_run(Consumer $consumer, CommandEvent $event)
     {
-        $this->beConstructedWith(10);
-        $this->setConsumer($consumer);
+        $this->beConstructedWith($consumer, 10);
 
         $consumer->shutdown()->shouldNotBeCalled();
 
         $this->handle($event);
     }
 
-    function it_checks_whether_consumer_should_stop(CommandEvent $event, Consumer $consumer)
+    function it_checks_whether_consumer_should_stop(Consumer $consumer, CommandEvent $event)
     {
-        $this->beConstructedWith(-1);
-        $this->setConsumer($consumer);
+        $this->beConstructedWith($consumer, -1);
 
         $consumer->shutdown()->shouldBeCalled();
 

@@ -9,9 +9,9 @@ use PhpSpec\ObjectBehavior;
 
 class CommandLimitSpec extends ObjectBehavior
 {
-    function let()
+    function let(Consumer $consumer)
     {
-        $this->beConstructedWith(1);
+        $this->beConstructedWith($consumer, 1);
     }
 
     function it_is_initializable()
@@ -32,29 +32,26 @@ class CommandLimitSpec extends ObjectBehavior
         $this->provideListeners($listenerAcceptor);
     }
 
-    function it_provides_less_listeners_when_it_does_not_count_failures(ListenerAcceptorInterface $listenerAcceptor)
+    function it_provides_less_listeners_when_it_does_not_count_failures(Consumer $consumer, ListenerAcceptorInterface $listenerAcceptor)
     {
-        $this->beConstructedWith(1, false);
+        $this->beConstructedWith($consumer, 1, false);
 
         $listenerAcceptor->addListener('commandExecuted', [$this, 'handle'])->shouldBeCalled();
 
         $this->provideListeners($listenerAcceptor);
     }
 
-    function it_checks_whether_consumer_should_run(CommandEvent $event, Consumer $consumer)
+    function it_checks_whether_consumer_should_run(Consumer $consumer, CommandEvent $event)
     {
-        $this->beConstructedWith(2);
-        $this->setConsumer($consumer);
+        $this->beConstructedWith($consumer, 2);
 
         $consumer->shutdown()->shouldNotBeCalled();
 
         $this->handle($event);
     }
 
-    function it_checks_whether_consumer_should_stop(CommandEvent $event, Consumer $consumer)
+    function it_checks_whether_consumer_should_stop(Consumer $consumer, CommandEvent $event)
     {
-        $this->setConsumer($consumer);
-
         $this->handle($event);
 
         $consumer->shutdown()->shouldBeCalled();

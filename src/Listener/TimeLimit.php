@@ -3,13 +3,20 @@
 namespace League\Tactician\Bernard\Listener;
 
 use League\Event\ListenerAcceptorInterface;
+use League\Event\ListenerProviderInterface;
+use League\Tactician\Bernard\Consumer;
 use League\Tactician\CommandEvents\CommandEvent;
 
 /**
  * Stops the consumer when it reaches the time limit
  */
-class TimeLimit extends ConsumerAware
+class TimeLimit implements ListenerProviderInterface
 {
+    /**
+     * @var Consumer
+     */
+    protected $consumer;
+
     /**
      * @var integer
      */
@@ -21,10 +28,12 @@ class TimeLimit extends ConsumerAware
     protected $initialized = false;
 
     /**
-     * @param integer $timeLimit
+     * @param Consumer $consumer
+     * @param integer  $timeLimit
      */
-    public function __construct($timeLimit)
+    public function __construct(Consumer $consumer, $timeLimit)
     {
+        $this->consumer = $consumer;
         $this->timeLimit = $timeLimit;
     }
 
@@ -51,7 +60,7 @@ class TimeLimit extends ConsumerAware
         }
 
         if ($this->timeLimit < microtime(true)) {
-            $this->stopConsumer();
+            $this->consumer->shutdown();
         }
     }
 }

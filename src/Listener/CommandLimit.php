@@ -3,13 +3,20 @@
 namespace League\Tactician\Bernard\Listener;
 
 use League\Event\ListenerAcceptorInterface;
+use League\Event\ListenerProviderInterface;
+use League\Tactician\Bernard\Consumer;
 use League\Tactician\CommandEvents\CommandEvent;
 
 /**
  * Stops the consumer when it reaches the command limit
  */
-class CommandLimit extends ConsumerAware
+class CommandLimit implements ListenerProviderInterface
 {
+    /**
+     * @var Consumer
+     */
+    protected $consumer;
+
     /**
      * @var integer
      */
@@ -26,11 +33,13 @@ class CommandLimit extends ConsumerAware
     protected $countFailures = true;
 
     /**
-     * @param integer $commandLimit
-     * @param boolean $countFailures
+     * @param Consumer $consumer
+     * @param integer  $commandLimit
+     * @param boolean  $countFailures
      */
-    public function __construct($commandLimit, $countFailures = true)
+    public function __construct(Consumer $consumer, $commandLimit, $countFailures = true)
     {
+        $this->consumer = $consumer;
         $this->commandLimit = $commandLimit;
         $this->countFailures = (bool) $countFailures;
     }
@@ -58,7 +67,7 @@ class CommandLimit extends ConsumerAware
         $this->commandCount++;
 
         if ($this->commandLimit <= $this->commandCount) {
-            $this->stopConsumer();
+            $this->consumer->shutdown();
         }
     }
 }
