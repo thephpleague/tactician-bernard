@@ -67,18 +67,24 @@ $consumer->consume($queue);
 
 ### Consuming commands in an event-driven way
 
-You can also use some event-driven logic.
+You can also use some event-driven logic. Make sure to install the Command Events package:
+
+``` bash
+$ composer require league/tactician-command-events
+```
 
 ``` php
-use League\Tactician\Bernard\EventableConsumer;
 use League\Tactician\Bernard\Listener\CommandLimit;
+use League\Tactician\CommandBus;
+use League\Tactician\CommandEvents\EventMiddleware;
 
-// ... create your inner EventableCommandBus
+$eventMiddleware = new EventMiddleware;
+$commandBus = new CommandBus([$eventMiddleware]);
 
-$consumer = new EventableConsumer($eventableCommandBus);
+$consumer = new Consumer($CommandBus);
 
 // execute maximum of 10 commands
-$consumer->addListener(new CommandLimit(10));
+$eventMiddleware->addListener(new CommandLimit($consumer, 10));
 
 $consumer->consume($queue);
 ```
