@@ -36,7 +36,7 @@ To send a command to it's destination, simply pass the middleware to the Command
 use League\Tactician\Bernard\QueueMiddleware;
 use League\Tactician\CommandBus;
 
-// ...create a Bernard\Queue instance
+// ... create a Bernard\Queue instance
 // make sure to add the appropriate serializers
 // see official documentation
 
@@ -56,7 +56,6 @@ use League\Tactician\Bernard\Consumer;
 use League\Tactician\Bernard\Listener\CommandLimit;
 use League\Tactician\CommandBus;
 
-// ... create your inner CommandBus
 $commandBus = new CommandBus([]);
 
 $consumer = new Consumer($commandBus);
