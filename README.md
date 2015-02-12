@@ -6,7 +6,7 @@
 [![Build Status](https://img.shields.io/travis/thephpleague/tactician-bernard-queueing.svg?style=flat-square)](https://travis-ci.org/thephpleague/tactician-bernard-queueing)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/thephpleague/tactician-bernard-queueing.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/tactician-bernard-queueing)
 [![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/tactician-bernard-queueing.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/tactician-bernard-queueing)
-[![HHVM Status](https://img.shields.io/hhvm/thephpleague/tactician-bernard-queueing.svg?style=flat-square)](http://hhvm.h4cc.de/package/thephpleague/tactician-bernard-queueing)
+[![HHVM Status](https://img.shields.io/hhvm/league/tactician-bernard-queueing.svg?style=flat-square)](http://hhvm.h4cc.de/package/league/tactician-bernard-queueing)
 [![Total Downloads](https://img.shields.io/packagist/dt/league/tactician-bernard-queueing.svg?style=flat-square)](https://packagist.org/packages/league/tactician-bernard-queueing)
 
 **Remote command bus plugin for [Tactician](http://tactician.thephpleague.com) based on [Bernard](http://bernardphp.com).**
@@ -30,16 +30,19 @@ You can run your consumer directly using your application, however you should av
 
 ### Remote execution
 
-To send a command to it's destination, simply create a remote executing command bus, and use it like you would use any other:
+To send a command to it's destination, simply pass the middleware to the Command Bus. Currently only commands implementing `League\Tactician\Bernard\QueueableCommand` can be passed to the queue, other commands will be passed to the next middleware in the chain.
 
 ``` php
-use League\Tactician\Bernard\QueueingCommandBus;
+use League\Tactician\Bernard\QueueMiddleware;
+use League\Tactician\CommandBus;
 
 // ...create a Bernard\Queue instance
 // make sure to add the appropriate serializers
+// see official documentation
 
-$commandBus = new QueueingCommandBus($queue);
+$queueMiddleware = new QueueMiddleware($queue);
 
+$commandBus = new CommandBus([$queueMiddleware]);
 $commandBus->execute($command);
 ```
 
@@ -51,8 +54,10 @@ On the other side of the message queue you must set up a consumer:
 ``` php
 use League\Tactician\Bernard\Consumer;
 use League\Tactician\Bernard\Listener\CommandLimit;
+use League\Tactician\CommandBus;
 
 // ... create your inner CommandBus
+$commandBus = new CommandBus([]);
 
 $consumer = new Consumer($commandBus);
 
@@ -62,7 +67,7 @@ $consumer->consume($queue);
 
 ### Consuming commands in an event-driven way
 
-You can also use some event-driven logic:
+You can also use some event-driven logic.
 
 ``` php
 use League\Tactician\Bernard\EventableConsumer;
