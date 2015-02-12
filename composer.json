@@ -16,7 +16,7 @@
         "league/event": "~2.1"
     },
     "require-dev": {
-        "league/tactician-command-events": "0.1.*@dev",
+        "league/tactician-command-events": "~0.1",
         "phpspec/phpspec": "~2.1",
         "henrikbjorn/phpspec-code-coverage" : "~1.0"
     },
