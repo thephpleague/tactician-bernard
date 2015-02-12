@@ -43,7 +43,7 @@ use League\Tactician\CommandBus;
 $queueMiddleware = new QueueMiddleware($queue);
 
 $commandBus = new CommandBus([$queueMiddleware]);
-$commandBus->execute($command);
+$commandBus->handle($command);
 ```
 
 
@@ -81,7 +81,7 @@ use League\Tactician\CommandEvents\EventMiddleware;
 $eventMiddleware = new EventMiddleware;
 $commandBus = new CommandBus([$eventMiddleware]);
 
-$consumer = new Consumer($CommandBus);
+$consumer = new Consumer($commandBus);
 
 // execute maximum of 10 commands
 $eventMiddleware->addListener(new CommandLimit($consumer, 10));
