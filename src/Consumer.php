@@ -54,7 +54,7 @@ class Consumer
 
             // TODO: some verification that a Command instance is returned
 
-            $this->commandBus->execute($command);
+            $this->commandBus->handle($command);
             $queue->acknowledge($envelope);
         }
     }

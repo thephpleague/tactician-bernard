@@ -5,7 +5,7 @@ namespace League\Tactician\Bernard\Listener;
 use League\Event\ListenerAcceptorInterface;
 use League\Event\ListenerProviderInterface;
 use League\Tactician\Bernard\Consumer;
-use League\Tactician\CommandEvents\CommandEvent;
+use League\Tactician\CommandEvents\Event\CommandEvent;
 
 /**
  * Stops the consumer when it reaches the command limit

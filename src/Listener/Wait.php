@@ -4,7 +4,7 @@ namespace League\Tactician\Bernard\Listener;
 
 use League\Event\ListenerAcceptorInterface;
 use League\Event\ListenerProviderInterface;
-use League\Tactician\CommandEvents\CommandEvent;
+use League\Tactician\CommandEvents\Event\CommandEvent;
 
 /**
  * Add a wait time to the consumer to slow down the infinite loop

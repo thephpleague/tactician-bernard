@@ -3,7 +3,7 @@
 namespace spec\League\Tactician\Bernard\Listener;
 
 use League\Event\ListenerAcceptorInterface;
-use League\Tactician\CommandEvents\CommandEvent;
+use League\Tactician\CommandEvents\Event\CommandEvent;
 use PhpSpec\ObjectBehavior;
 
 class WaitSpec extends ObjectBehavior

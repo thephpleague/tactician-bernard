@@ -29,7 +29,7 @@ class ConsumerSpec extends ObjectBehavior
 
             return $envelope;
         });
-        $commandBus->execute($command)->shouldBeCalled();
+        $commandBus->handle($command)->shouldBeCalled();
         $queue->acknowledge($envelope)->shouldBeCalled();
 
         $this->consume($queue);
