@@ -58,9 +58,9 @@ use League\Tactician\CommandBus;
 
 $commandBus = new CommandBus([]);
 
-$consumer = new Consumer($commandBus);
+$consumer = new Consumer();
 
-$consumer->consume($queue);
+$consumer->consume($queue, $commandBus);
 ```
 
 
@@ -77,15 +77,16 @@ use League\Tactician\Bernard\Listener\CommandLimit;
 use League\Tactician\CommandBus;
 use League\Tactician\CommandEvents\EventMiddleware;
 
-$eventMiddleware = new EventMiddleware;
-$commandBus = new CommandBus([$eventMiddleware]);
+$consumer = new Consumer();
 
-$consumer = new Consumer($commandBus);
+$eventMiddleware = new EventMiddleware;
 
 // execute maximum of 10 commands
 $eventMiddleware->addListener(new CommandLimit($consumer, 10));
 
-$consumer->consume($queue);
+$commandBus = new CommandBus([$eventMiddleware]);
+
+$consumer->consume($queue, $commandBus);
 ```
 
 List of available listeners:

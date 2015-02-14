@@ -10,11 +10,6 @@ use PhpSpec\ObjectBehavior;
 
 class ConsumerSpec extends ObjectBehavior
 {
-    function let(CommandBus $commandBus)
-    {
-        $this->beConstructedWith($commandBus);
-    }
-
     function it_is_initializable()
     {
         $this->shouldHaveType('League\Tactician\Bernard\Consumer');
@@ -32,6 +27,6 @@ class ConsumerSpec extends ObjectBehavior
         $commandBus->handle($command)->shouldBeCalled();
         $queue->acknowledge($envelope)->shouldBeCalled();
 
-        $this->consume($queue);
+        $this->consume($queue, $commandBus);
     }
 }
