@@ -3,7 +3,7 @@
 namespace spec\League\Tactician\Bernard\Listener;
 
 use League\Event\ListenerAcceptorInterface;
-use League\Tactician\Bernard\Event\ConsumerCycle;
+use League\Tactician\CommandEvents\Event\CommandEvent;
 use PhpSpec\ObjectBehavior;
 
 class WaitSpec extends ObjectBehavior
@@ -25,17 +25,18 @@ class WaitSpec extends ObjectBehavior
 
     function it_provides_listeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        $listenerAcceptor->addListener('consumerCycle', [$this, 'wait'])->shouldBeCalled();
+        $listenerAcceptor->addListener('commandExecuted', [$this, 'handle'])->shouldBeCalled();
+        $listenerAcceptor->addListener('commandFailed', [$this, 'handle'])->shouldBeCalled();
 
         $this->provideListeners($listenerAcceptor);
     }
 
-    function it_waits_for_one_microsecond(ConsumerCycle $event)
+    function it_waits_for_one_microsecond(CommandEvent $event)
     {
         $this->wait($event);
     }
 
-    function it_waits_for_one_second(ConsumerCycle $event)
+    function it_waits_for_one_second(CommandEvent $event)
     {
         $this->beConstructedWith(1);
 

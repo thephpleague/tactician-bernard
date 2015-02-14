@@ -11,11 +11,6 @@ use League\Tactician\CommandBus;
 class Consumer
 {
     /**
-     * @var CommandBus
-     */
-    protected $commandBus;
-
-    /**
      * While this is true the loop will continue running
      *
      * @var boolean
@@ -23,39 +18,22 @@ class Consumer
     protected $consume = true;
 
     /**
-     * @param CommandBus $commandBus
-     */
-    public function __construct(CommandBus $commandBus)
-    {
-        $this->commandBus = $commandBus;
-    }
-
-    /**
      * Starts an infinite loop
      *
-     * @param Queue $queue
+     * @param Queue      $queue
+     * @param CommandBus $commandBus
      */
-    public function consume(Queue $queue)
+    public function consume(Queue $queue, CommandBus $commandBus)
     {
         while ($this->consume) {
-            $this->doConsume($queue);
-        }
-    }
+            if ($envelope = $queue->dequeue()) {
+                $command = $envelope->getMessage();
 
-    /**
-     * Does the actual consuming logic separated from the loop
-     *
-     * @param Queue $queue
-     */
-    protected function doConsume(Queue $queue)
-    {
-        if ($envelope = $queue->dequeue()) {
-            $command = $envelope->getMessage();
+                // TODO: some verification that a Command instance is returned
 
-            // TODO: some verification that a Command instance is returned
-
-            $this->commandBus->execute($command);
-            $queue->acknowledge($envelope);
+                $commandBus->handle($command);
+                $queue->acknowledge($envelope);
+            }
         }
     }
 

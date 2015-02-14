@@ -36,14 +36,14 @@ To send a command to it's destination, simply pass the middleware to the Command
 use League\Tactician\Bernard\QueueMiddleware;
 use League\Tactician\CommandBus;
 
-// ...create a Bernard\Queue instance
+// ... create a Bernard\Queue instance
 // make sure to add the appropriate serializers
 // see official documentation
 
 $queueMiddleware = new QueueMiddleware($queue);
 
 $commandBus = new CommandBus([$queueMiddleware]);
-$commandBus->execute($command);
+$commandBus->handle($command);
 ```
 
 
@@ -56,31 +56,37 @@ use League\Tactician\Bernard\Consumer;
 use League\Tactician\Bernard\Listener\CommandLimit;
 use League\Tactician\CommandBus;
 
-// ... create your inner CommandBus
 $commandBus = new CommandBus([]);
 
-$consumer = new Consumer($commandBus);
+$consumer = new Consumer();
 
-$consumer->consume($queue);
+$consumer->consume($queue, $commandBus);
 ```
 
 
 ### Consuming commands in an event-driven way
 
-You can also use some event-driven logic.
+You can also use some event-driven logic. Make sure to install the Command Events package:
+
+``` bash
+$ composer require league/tactician-command-events
+```
 
 ``` php
-use League\Tactician\Bernard\EventableConsumer;
 use League\Tactician\Bernard\Listener\CommandLimit;
+use League\Tactician\CommandBus;
+use League\Tactician\CommandEvents\EventMiddleware;
 
-// ... create your inner EventableCommandBus
+$consumer = new Consumer();
 
-$consumer = new EventableConsumer($eventableCommandBus);
+$eventMiddleware = new EventMiddleware;
 
 // execute maximum of 10 commands
-$consumer->addListener(new CommandLimit(10));
+$eventMiddleware->addListener(new CommandLimit($consumer, 10));
 
-$consumer->consume($queue);
+$commandBus = new CommandBus([$eventMiddleware]);
+
+$consumer->consume($queue, $commandBus);
 ```
 
 List of available listeners:

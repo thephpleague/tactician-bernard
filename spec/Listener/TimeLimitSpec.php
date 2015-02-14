@@ -2,16 +2,16 @@
 
 namespace spec\League\Tactician\Bernard\Listener;
 
-use League\Event\EventInterface;
 use League\Event\ListenerAcceptorInterface;
-use League\Tactician\Bernard\Event\ConsumerCycle;
+use League\Tactician\CommandEvents\Event\CommandEvent;
+use League\Tactician\Bernard\Consumer;
 use PhpSpec\ObjectBehavior;
 
 class TimeLimitSpec extends ObjectBehavior
 {
-    function let()
+    function let(Consumer $consumer)
     {
-        $this->beConstructedWith(1);
+        $this->beConstructedWith($consumer, 1);
     }
 
     function it_is_initializable()
@@ -26,26 +26,27 @@ class TimeLimitSpec extends ObjectBehavior
 
     function it_provides_listeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        $listenerAcceptor->addListener('consumerCycle', [$this, 'check'])->shouldBeCalled();
+        $listenerAcceptor->addListener('commandExecuted', [$this, 'handle'])->shouldBeCalled();
+        $listenerAcceptor->addListener('commandFailed', [$this, 'handle'])->shouldBeCalled();
 
         $this->provideListeners($listenerAcceptor);
     }
 
-    function it_checks_whether_consumer_should_run(ConsumerCycle $event)
+    function it_checks_whether_consumer_should_run(Consumer $consumer, CommandEvent $event)
     {
-        $this->beConstructedWith(10);
+        $this->beConstructedWith($consumer, 10);
 
-        $event->stopConsumer()->shouldNotBeCalled();
+        $consumer->shutdown()->shouldNotBeCalled();
 
-        $this->check($event);
+        $this->handle($event);
     }
 
-    function it_checks_whether_consumer_should_stop(EventInterface $startEvent, ConsumerCycle $cycleEvent)
+    function it_checks_whether_consumer_should_stop(Consumer $consumer, CommandEvent $event)
     {
-        $this->beConstructedWith(-1);
+        $this->beConstructedWith($consumer, -1);
 
-        $cycleEvent->stopConsumer()->shouldBeCalled();
+        $consumer->shutdown()->shouldBeCalled();
 
-        $this->check($cycleEvent);
+        $this->handle($event);
     }
 }

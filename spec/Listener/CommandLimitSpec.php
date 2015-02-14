@@ -2,16 +2,16 @@
 
 namespace spec\League\Tactician\Bernard\Listener;
 
-use League\Event\EventInterface;
 use League\Event\ListenerAcceptorInterface;
-use League\Tactician\Bernard\Event\ConsumerCycle;
+use League\Tactician\CommandEvents\Event\CommandEvent;
+use League\Tactician\Bernard\Consumer;
 use PhpSpec\ObjectBehavior;
 
 class CommandLimitSpec extends ObjectBehavior
 {
-    function let()
+    function let(Consumer $consumer)
     {
-        $this->beConstructedWith(1);
+        $this->beConstructedWith($consumer, 1);
     }
 
     function it_is_initializable()
@@ -26,36 +26,36 @@ class CommandLimitSpec extends ObjectBehavior
 
     function it_provides_listeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        $listenerAcceptor->addListener('consumerCycle', [$this, 'check'])->shouldBeCalled();
-        $listenerAcceptor->addListener('commandExecuted', [$this, 'count'])->shouldBeCalled();
-        $listenerAcceptor->addListener('commandFailed', [$this, 'count'])->shouldBeCalled();
+        $listenerAcceptor->addListener('commandExecuted', [$this, 'handle'])->shouldBeCalled();
+        $listenerAcceptor->addListener('commandFailed', [$this, 'handle'])->shouldBeCalled();
 
         $this->provideListeners($listenerAcceptor);
     }
 
-    function it_provides_less_listeners_when_it_does_not_count_failures(ListenerAcceptorInterface $listenerAcceptor)
+    function it_provides_less_listeners_when_it_does_not_count_failures(Consumer $consumer, ListenerAcceptorInterface $listenerAcceptor)
     {
-        $this->beConstructedWith(1, false);
+        $this->beConstructedWith($consumer, 1, false);
 
-        $listenerAcceptor->addListener('consumerCycle', [$this, 'check'])->shouldBeCalled();
-        $listenerAcceptor->addListener('commandExecuted', [$this, 'count'])->shouldBeCalled();
+        $listenerAcceptor->addListener('commandExecuted', [$this, 'handle'])->shouldBeCalled();
 
         $this->provideListeners($listenerAcceptor);
     }
 
-    function it_checks_whether_consumer_should_run(ConsumerCycle $event)
+    function it_checks_whether_consumer_should_run(Consumer $consumer, CommandEvent $event)
     {
-        $event->stopConsumer()->shouldNotBeCalled();
+        $this->beConstructedWith($consumer, 2);
 
-        $this->check($event);
+        $consumer->shutdown()->shouldNotBeCalled();
+
+        $this->handle($event);
     }
 
-    function it_checks_whether_consumer_should_stop(EventInterface $countEvent, ConsumerCycle $cycleEvent)
+    function it_checks_whether_consumer_should_stop(Consumer $consumer, CommandEvent $event)
     {
-        $this->count($countEvent);
+        $this->handle($event);
 
-        $cycleEvent->stopConsumer()->shouldBeCalled();
+        $consumer->shutdown()->shouldBeCalled();
 
-        $this->check($cycleEvent);
+        $this->handle($event);
     }
 }

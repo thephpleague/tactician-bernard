@@ -2,16 +2,21 @@
 
 namespace League\Tactician\Bernard\Listener;
 
-use League\Event\EventInterface;
 use League\Event\ListenerAcceptorInterface;
 use League\Event\ListenerProviderInterface;
-use League\Tactician\Bernard\Event\ConsumerCycle;
+use League\Tactician\Bernard\Consumer;
+use League\Tactician\CommandEvents\Event\CommandEvent;
 
 /**
  * Stops the consumer when it reaches the command limit
  */
 class CommandLimit implements ListenerProviderInterface
 {
+    /**
+     * @var Consumer
+     */
+    protected $consumer;
+
     /**
      * @var integer
      */
@@ -28,11 +33,13 @@ class CommandLimit implements ListenerProviderInterface
     protected $countFailures = true;
 
     /**
-     * @param integer $commandLimit
-     * @param boolean $countFailures
+     * @param Consumer $consumer
+     * @param integer  $commandLimit
+     * @param boolean  $countFailures
      */
-    public function __construct($commandLimit, $countFailures = true)
+    public function __construct(Consumer $consumer, $commandLimit, $countFailures = true)
     {
+        $this->consumer = $consumer;
         $this->commandLimit = $commandLimit;
         $this->countFailures = (bool) $countFailures;
     }
@@ -42,34 +49,25 @@ class CommandLimit implements ListenerProviderInterface
      */
     public function provideListeners(ListenerAcceptorInterface $listenerAcceptor)
     {
-        $listenerAcceptor->addListener('consumerCycle', [$this, 'check']);
-        $listenerAcceptor->addListener('commandExecuted', [$this, 'count']);
+        $listenerAcceptor->addListener('commandExecuted', [$this, 'handle']);
 
         // Count failed commands as well
         if ($this->countFailures) {
-            $listenerAcceptor->addListener('commandFailed', [$this, 'count']);
+            $listenerAcceptor->addListener('commandFailed', [$this, 'handle']);
         }
     }
 
     /**
      * Check if the consumer passed the limit
      *
-     * @param ConsumerCycle $event
+     * @param CommandEvent $event
      */
-    public function check(ConsumerCycle $event)
-    {
-        if ($this->commandLimit <= $this->commandCount) {
-            $event->stopConsumer();
-        }
-    }
-
-    /**
-     * Counts a command
-     *
-     * @param EventInterface $event
-     */
-    public function count(EventInterface $event)
+    public function handle(CommandEvent $event)
     {
         $this->commandCount++;
+
+        if ($this->commandLimit <= $this->commandCount) {
+            $this->consumer->shutdown();
+        }
     }
 }
