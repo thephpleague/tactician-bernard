@@ -1,4 +1,4 @@
-# Tactician Bernard Queueing
+# Tactician Bernard
 
 [![Author](http://img.shields.io/badge/author-@sagikazarmark-blue.svg?style=flat-square)](https://twitter.com/sagikazarmark)
 [![Latest Version](https://img.shields.io/github/release/thephpleague/tactician-bernard-queueing.svg?style=flat-square)](https://github.com/thephpleague/tactician-bernard-queueing/releases)
