@@ -56,6 +56,7 @@ use League\Tactician\Bernard\Consumer;
 use League\Tactician\Bernard\Listener\CommandLimit;
 use League\Tactician\CommandBus;
 
+// inject some middlewares
 $commandBus = new CommandBus([]);
 
 $consumer = new Consumer();
@@ -72,28 +73,41 @@ You can also use some event-driven logic. Make sure to install the Command Event
 $ composer require league/tactician-command-events
 ```
 
+To learn about using the Command Events plugins check the [documentation](http://tactician.thephpleague.com/plugins/event-middleware/).
+
+
+#### Limit maximum amount of commands
+
 ``` php
 use League\Tactician\Bernard\Listener\CommandLimit;
-use League\Tactician\CommandBus;
-use League\Tactician\CommandEvents\EventMiddleware;
 
-$consumer = new Consumer();
-
-$eventMiddleware = new EventMiddleware;
-
-// execute maximum of 10 commands
 $eventMiddleware->addListener(new CommandLimit($consumer, 10));
-
-$commandBus = new CommandBus([$eventMiddleware]);
-
-$consumer->consume($queue, $commandBus);
 ```
 
-List of available listeners:
+#### Limit the maximum time (in seconds) the consumer can run
 
-- `CommandLimit`: limits how many commands the consumer can execute
-- `TimeLimit`: limits how long the consumer can run
-- `Wait`: wait for some time at the end of each cycle
+``` php
+use League\Tactician\Bernard\Listener\TimeLimit;
+
+$eventMiddleware->addListener(new TimeLimit($consumer, 10));
+```
+
+#### Wait for a specific time (in seconds) after every cycle
+
+``` php
+use League\Tactician\Bernard\Listener\Wait;
+
+$eventMiddleware->addListener(new Wait($consumer, 1));
+```
+
+
+You can optionally pass the time in microseconds:
+
+``` php
+use League\Tactician\Bernard\Listener\Wait;
+
+$eventMiddleware->addListener(new Wait($consumer, 10000, true));
+```
 
 
 ## Testing
