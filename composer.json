@@ -12,7 +12,7 @@
     ],
     "require": {
         "bernard/bernard": "1.0.*@dev",
-        "league/tactician": "~0.3"
+        "league/tactician": "^0.3"
     },
     "require-dev": {
         "league/tactician-command-events": "~0.1",
