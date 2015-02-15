@@ -67,13 +67,13 @@ $consumer->consume($queue, $commandBus);
 
 ### Consuming commands in an event-driven way
 
-You can also use some event-driven logic. Make sure to install the Command Events package:
+You can also use some event-driven logic. Make sure to install the Command Events plugin:
 
 ``` bash
 $ composer require league/tactician-command-events
 ```
 
-To learn about using the Command Events plugins check the [documentation](http://tactician.thephpleague.com/plugins/event-middleware/).
+To learn about using the Command Events plugin check the [documentation](http://tactician.thephpleague.com/plugins/event-middleware/).
 
 
 #### Limit maximum amount of commands
