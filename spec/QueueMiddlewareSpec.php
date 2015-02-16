@@ -4,6 +4,7 @@ namespace spec\League\Tactician\Bernard;
 
 use Bernard\Queue;
 use League\Tactician\Command;
+use League\Tactician\Middleware;
 use League\Tactician\Bernard\QueueableCommand;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -30,5 +31,19 @@ class QueueMiddlewareSpec extends ObjectBehavior
         $queue->enqueue(Argument::type('Bernard\Envelope'))->shouldBeCalled();
 
         $this->execute($command, function() {});
+    }
+
+    function it_executes_invokes_the_next_middleware(Queue $queue, Command $command, Middleware $middleware)
+    {
+        $queue->enqueue(Argument::type('Bernard\Envelope'))->shouldNotBeCalled();
+        $next = function() {};
+        $middleware->execute($command, $next)->willReturn(true);
+
+        $this->execute(
+            $command,
+            function($command) use ($middleware, $next) {
+                return $middleware->execute($command, $next);
+            }
+        );
     }
 }
