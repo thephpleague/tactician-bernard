@@ -11,27 +11,21 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
         "bernard/bernard": "1.0.*@dev",
-        "league/tactician": "dev-master",
-        "league/event": "~2.0.0"
+        "league/tactician": "^0.3"
     },
     "require-dev": {
-        "league/tactician-command-events": "0.1.0.*@dev",
-        "phpspec/phpspec": "~2.1.0",
-        "henrikbjorn/phpspec-code-coverage" : "~1.0.0"
-    },
-    "suggest": {
-        "league/tactician-command-events": "Used for event-driven consuming logic"
+        "phpspec/phpspec": "~2.1",
+        "henrikbjorn/phpspec-code-coverage" : "~1.0"
     },
     "autoload": {
         "psr-4": {
-            "League\\Tactician\\": "src/"
+            "League\\Tactician\\Bernard\\": "src/"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1.0-dev"
+            "dev-master": "0.1-dev"
         }
     },
     "prefer-stable": true,
