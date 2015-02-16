@@ -52,61 +52,19 @@ $commandBus->handle($command);
 On the other side of the message queue you must set up a consumer:
 
 ``` php
-use League\Tactician\Bernard\Consumer;
-use League\Tactician\Bernard\Listener\CommandLimit;
+use Bernard\Consumer;
+use League\Tactician\Bernard\Router;
 use League\Tactician\CommandBus;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 // inject some middlewares
 $commandBus = new CommandBus([]);
 
-$consumer = new Consumer();
+$router = new Router($commandBus);
 
-$consumer->consume($queue, $commandBus);
-```
+$consumer = new Consumer($router, new EventDispatcher());
 
-
-### Consuming commands in an event-driven way
-
-You can also use some event-driven logic. Make sure to install the Command Events plugin:
-
-``` bash
-$ composer require league/tactician-command-events
-```
-
-To learn about using the Command Events plugin check the [documentation](http://tactician.thephpleague.com/plugins/event-middleware/).
-
-
-#### Limit maximum amount of commands
-
-``` php
-use League\Tactician\Bernard\Listener\CommandLimit;
-
-$eventMiddleware->addListener(new CommandLimit($consumer, 10));
-```
-
-#### Limit the maximum time (in seconds) the consumer can run
-
-``` php
-use League\Tactician\Bernard\Listener\TimeLimit;
-
-$eventMiddleware->addListener(new TimeLimit($consumer, 10));
-```
-
-#### Wait for a specific time (in seconds) after every cycle
-
-``` php
-use League\Tactician\Bernard\Listener\Wait;
-
-$eventMiddleware->addListener(new Wait($consumer, 1));
-```
-
-
-You can optionally pass the time in microseconds:
-
-``` php
-use League\Tactician\Bernard\Listener\Wait;
-
-$eventMiddleware->addListener(new Wait($consumer, 10000, true));
+$consumer->consume($queue);
 ```
 
 
