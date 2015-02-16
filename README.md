@@ -1,15 +1,15 @@
 # Tactician Bernard
 
 [![Author](http://img.shields.io/badge/author-@sagikazarmark-blue.svg?style=flat-square)](https://twitter.com/sagikazarmark)
-[![Latest Version](https://img.shields.io/github/release/thephpleague/tactician-bernard-queueing.svg?style=flat-square)](https://github.com/thephpleague/tactician-bernard-queueing/releases)
+[![Latest Version](https://img.shields.io/github/release/thephpleague/tactician-bernard.svg?style=flat-square)](https://github.com/thephpleague/tactician-bernard/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://img.shields.io/travis/thephpleague/tactician-bernard-queueing.svg?style=flat-square)](https://travis-ci.org/thephpleague/tactician-bernard-queueing)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/thephpleague/tactician-bernard-queueing.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/tactician-bernard-queueing)
-[![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/tactician-bernard-queueing.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/tactician-bernard-queueing)
-[![HHVM Status](https://img.shields.io/hhvm/league/tactician-bernard-queueing.svg?style=flat-square)](http://hhvm.h4cc.de/package/league/tactician-bernard-queueing)
-[![Total Downloads](https://img.shields.io/packagist/dt/league/tactician-bernard-queueing.svg?style=flat-square)](https://packagist.org/packages/league/tactician-bernard-queueing)
+[![Build Status](https://img.shields.io/travis/thephpleague/tactician-bernard.svg?style=flat-square)](https://travis-ci.org/thephpleague/tactician-bernard)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/thephpleague/tactician-bernard.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/tactician-bernard)
+[![Quality Score](https://img.shields.io/scrutinizer/g/thephpleague/tactician-bernard.svg?style=flat-square)](https://scrutinizer-ci.com/g/thephpleague/tactician-bernard)
+[![HHVM Status](https://img.shields.io/hhvm/league/tactician-bernard.svg?style=flat-square)](http://hhvm.h4cc.de/package/league/tactician-bernard)
+[![Total Downloads](https://img.shields.io/packagist/dt/league/tactician-bernard.svg?style=flat-square)](https://packagist.org/packages/league/tactician-bernard)
 
-**Remote command bus plugin for [Tactician](http://tactician.thephpleague.com) based on [Bernard](http://bernardphp.com).**
+**Queueing command bus plugin for [Tactician](http://tactician.thephpleague.com) based on [Bernard](http://bernardphp.com).**
 
 
 ## Install
@@ -17,7 +17,7 @@
 Via Composer
 
 ``` bash
-$ composer require league/tactician-bernard-queueing
+$ composer require league/tactician-bernard
 ```
 
 
@@ -42,7 +42,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 - [Ross Tuck](https://github.com/rosstuck)
 - [Márk Sági-Kazár](https://github.com/sagikazarmark)
-- [All Contributors](https://github.com/thephpleague/tactician-bernard-queueing/contributors)
+- [All Contributors](https://github.com/thephpleague/tactician-bernard/contributors)
 
 
 ## License
