@@ -28,13 +28,16 @@ class QueueMiddlewareSpec extends ObjectBehavior
 
     function it_executes_a_command(Queue $queue, QueueableCommand $command)
     {
+        $command->shouldBeQueued()->willReturn(true);
+
         $queue->enqueue(Argument::type('Bernard\Envelope'))->shouldBeCalled();
 
         $this->execute($command, function() {});
     }
 
-    function it_executes_invokes_the_next_middleware(Queue $queue, Command $command, Middleware $middleware)
+    function it_executes_invokes_the_next_middleware(Queue $queue, QueueableCommand $command, Middleware $middleware)
     {
+        $command->shouldBeQueued()->willReturn(false);
         $queue->enqueue(Argument::type('Bernard\Envelope'))->shouldNotBeCalled();
         $next = function() {};
         $middleware->execute($command, $next)->willReturn(true);
