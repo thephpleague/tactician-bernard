@@ -28,6 +28,7 @@ class RouterSpec extends ObjectBehavior
     function it_maps_an_envelope(Envelope $envelope, QueueableCommand $command, CommandBus $commandBus)
     {
         $envelope->getMessage()->willReturn($command);
+        $command->setQueueDecision(false)->shouldBeCalled();
 
         $this->map($envelope)->shouldReturn([$commandBus, 'handle']);
     }

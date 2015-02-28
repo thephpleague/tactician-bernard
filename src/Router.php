@@ -33,6 +33,8 @@ class Router implements \Bernard\Router
             throw new ReceiverNotFoundException();
         }
 
+        $envelope->getMessage()->setQueueDecision(false);
+
         return [$this->commandBus, 'handle'];
     }
 }

@@ -31,10 +31,17 @@ class QueueMiddleware implements Middleware
      */
     public function execute(Command $command, callable $next)
     {
-        if ($command instanceof Message) {
-            $this->queue->enqueue(new Envelope($command));
+        if (!$command instanceof QueueableCommand) {
+            $command = new CommandWrapper($command);
+        }
 
+        if ($command->shouldBeQueued()) {
+            $this->queue->enqueue(new Envelope($command));
             return;
+        }
+
+        if ($command instanceof CommandWrapper) {
+            $command = $command->getCommand();
         }
 
         return $next($command);
