@@ -6,6 +6,8 @@ use League\Tactician\Command;
 
 /**
  * Indicates the command has been queued or not
+ *
+ * @final
  */
 class QueuedCommand implements Command
 {

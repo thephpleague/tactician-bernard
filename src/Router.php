@@ -4,6 +4,7 @@ namespace League\Tactician\Bernard;
 
 use Bernard\Envelope;
 use Bernard\Exception\ReceiverNotFoundException;
+use League\Tactician\Command;
 use League\Tactician\CommandBus;
 
 /**
@@ -29,7 +30,7 @@ class Router implements \Bernard\Router
      */
     public function map(Envelope $envelope)
     {
-        if (!$envelope->getMessage() instanceof QueueableCommand) {
+        if (!$envelope->getMessage() instanceof Command) {
             throw new ReceiverNotFoundException();
         }
 

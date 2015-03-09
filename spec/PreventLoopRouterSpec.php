@@ -6,8 +6,9 @@ use Bernard\Envelope;
 use League\Tactician\Bernard\QueueableCommand;
 use League\Tactician\CommandBus;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
-class RouterSpec extends ObjectBehavior
+class PreventLoopRouterSpec extends ObjectBehavior
 {
     function let(CommandBus $commandBus)
     {
@@ -16,7 +17,7 @@ class RouterSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('League\Tactician\Bernard\Router');
+        $this->shouldHaveType('League\Tactician\Bernard\PreventLoopRouter');
     }
 
     function it_is_a_router()
@@ -27,8 +28,13 @@ class RouterSpec extends ObjectBehavior
     function it_maps_an_envelope(Envelope $envelope, QueueableCommand $command, CommandBus $commandBus)
     {
         $envelope->getMessage()->willReturn($command);
+        $commandBus->handle(Argument::type('League\Tactician\Bernard\QueuedCommand'))->shouldBeCalled();
 
-        $this->map($envelope)->shouldReturn([$commandBus, 'handle']);
+        $closure = $this->map($envelope);
+
+        $closure->shouldHaveType('Closure');
+
+        $closure();
     }
 
     function it_throws_an_exception_when_command_is_invalid(Envelope $envelope)
