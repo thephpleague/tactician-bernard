@@ -6,6 +6,7 @@ use Bernard\Producer;
 use League\Tactician\Command;
 use League\Tactician\Middleware;
 use League\Tactician\Bernard\QueueableCommand;
+use League\Tactician\Bernard\QueuedCommand;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
