@@ -24,4 +24,11 @@ class RouterSetupSpec extends ObjectBehavior
 
         $this->setUp($router);
     }
+
+    function it_sets_a_router_up_with_loop_prevention(SimpleRouter $router, CommandBus $commandBus)
+    {
+        $router->add('League\Tactician\Command', [$this, 'handleWithCommandWrapping'])->shouldBeCalled();
+
+        $this->setUpWithLoopPrevention($router);
+    }
 }
