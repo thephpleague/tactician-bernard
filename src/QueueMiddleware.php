@@ -36,6 +36,10 @@ class QueueMiddleware implements Middleware
             return;
         }
 
+        if ($command instanceof QueuedCommand) {
+            $command = $command->getCommand();
+        }
+
         return $next($command);
     }
 }
