@@ -2,9 +2,8 @@
 
 namespace League\Tactician\Bernard;
 
-use Bernard\Envelope;
 use Bernard\Message;
-use Bernard\Queue;
+use Bernard\Producer;
 use League\Tactician\Command;
 use League\Tactician\Middleware;
 
@@ -14,16 +13,16 @@ use League\Tactician\Middleware;
 class QueueMiddleware implements Middleware
 {
     /**
-     * @var Queue
+     * @var Producer
      */
-    protected $queue;
+    protected $producer;
 
     /**
-     * @param Queue $queue
+     * @param Producer $producer
      */
-    public function __construct(Queue $queue)
+    public function __construct(Producer $producer)
     {
-        $this->queue = $queue;
+        $this->producer = $producer;
     }
 
     /**
@@ -32,9 +31,13 @@ class QueueMiddleware implements Middleware
     public function execute(Command $command, callable $next)
     {
         if ($command instanceof Message) {
-            $this->queue->enqueue(new Envelope($command));
+            $this->producer->produce($command);
 
             return;
+        }
+
+        if ($command instanceof QueuedCommand) {
+            $command = $command->getCommand();
         }
 
         return $next($command);

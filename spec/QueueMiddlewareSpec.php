@@ -2,18 +2,19 @@
 
 namespace spec\League\Tactician\Bernard;
 
-use Bernard\Queue;
+use Bernard\Producer;
 use League\Tactician\Command;
 use League\Tactician\Middleware;
 use League\Tactician\Bernard\QueueableCommand;
+use League\Tactician\Bernard\QueuedCommand;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class QueueMiddlewareSpec extends ObjectBehavior
 {
-    function let(Queue $queue)
+    function let(Producer $producer)
     {
-        $this->beConstructedWith($queue);
+        $this->beConstructedWith($producer);
     }
 
     function it_is_initializable()
@@ -26,16 +27,16 @@ class QueueMiddlewareSpec extends ObjectBehavior
         $this->shouldImplement('League\Tactician\Middleware');
     }
 
-    function it_executes_a_command(Queue $queue, QueueableCommand $command)
+    function it_executes_a_command(Producer $producer, QueueableCommand $command)
     {
-        $queue->enqueue(Argument::type('Bernard\Envelope'))->shouldBeCalled();
+        $producer->produce($command)->shouldBeCalled();
 
         $this->execute($command, function() {});
     }
 
-    function it_executes_invokes_the_next_middleware(Queue $queue, Command $command, Middleware $middleware)
+    function it_executes_invokes_the_next_middleware(Producer $producer, Command $command, Middleware $middleware)
     {
-        $queue->enqueue(Argument::type('Bernard\Envelope'))->shouldNotBeCalled();
+        $producer->produce($command)->shouldNotBeCalled();
         $next = function() {};
         $middleware->execute($command, $next)->willReturn(true);
 
