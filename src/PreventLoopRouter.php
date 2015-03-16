@@ -10,7 +10,7 @@ use League\Tactician\CommandBus;
 /**
  * Command router to be used in Bernard\Consumer
  */
-class Router implements \Bernard\Router
+class PreventLoopRouter implements \Bernard\Router
 {
     /**
      * @var CommandBus
@@ -34,6 +34,10 @@ class Router implements \Bernard\Router
             throw new ReceiverNotFoundException();
         }
 
-        return [$this->commandBus, 'handle'];
+        return function () use ($envelope) {
+            $queuedCommand = new QueuedCommand($envelope->getMessage());
+
+            $this->commandBus->handle($queuedCommand);
+        };
     }
 }
