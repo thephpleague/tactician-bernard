@@ -1,13 +1,15 @@
 <?php
 
-namespace League\Tactician\Bernard;
+namespace League\Tactician\Bernard\Receiver;
 
 use Bernard\Message;
+use League\Tactician\Bernard\Receiver;
+use League\Tactician\Bernard\QueuedCommand;
 
 /**
  * Receives a Message from a Consumer and handles it (additionally prevents it from being requeued)
  */
-class PreventLoopReceiver extends Receiver
+class SameBusReceiver extends Receiver
 {
     /**
      * {@inheritdoc}

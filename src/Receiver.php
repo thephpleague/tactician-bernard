@@ -6,9 +6,9 @@ use Bernard\Message;
 use League\Tactician\CommandBus;
 
 /**
- * Receives a Message from a Consumer and handles it
+ * Receives a Message from a Consumer
  */
-class Receiver
+abstract class Receiver
 {
     /**
      * @var CommandBus
@@ -28,10 +28,7 @@ class Receiver
      *
      * @param Message $message
      */
-    public function handle(Message $message)
-    {
-        return $this->commandBus->handle($message);
-    }
+    abstract public function handle(Message $message);
 
     /**
      * Makes the receiver callable to be able to register it in a router
