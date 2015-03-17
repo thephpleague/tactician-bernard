@@ -1,11 +1,11 @@
 # Change Log
 
 
-## Unreleased
+## 0.2.0 - 2015-03-17
 
 ### Added
 
-- `RouterSetup` to help setting up a `Router`
+- `*BusReceivers` to be added to Bernard's core routers
 
 ### Changed
 
