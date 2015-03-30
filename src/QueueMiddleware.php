@@ -28,7 +28,7 @@ class QueueMiddleware implements Middleware
     /**
      * {@inheritdoc}
      */
-    public function execute(Command $command, callable $next)
+    public function execute($command, callable $next)
     {
         if ($command instanceof Message) {
             $this->producer->produce($command);
