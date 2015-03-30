@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.3.0 - 2015-03-30
+
+### Changed
+
+- The `Command` interface from Tactician is no longer required.
 
 ## 0.2.0 - 2015-03-17
 
