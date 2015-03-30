@@ -2,12 +2,12 @@
 
 namespace spec\League\Tactician\Bernard;
 
-use League\Tactician\Bernard\QueueableCommand;
+use Bernard\Message;
 use PhpSpec\ObjectBehavior;
 
 class QueuedCommandSpec extends ObjectBehavior
 {
-    function let(QueueableCommand $command)
+    function let(Message $command)
     {
         $this->beConstructedWith($command);
     }
@@ -17,12 +17,7 @@ class QueuedCommandSpec extends ObjectBehavior
         $this->shouldHaveType('League\Tactician\Bernard\QueuedCommand');
     }
 
-    function it_is_a_command()
-    {
-        $this->shouldImplement('League\Tactician\Command');
-    }
-
-    function it_has_a_queueable_command(QueueableCommand $command)
+    function it_has_a_queueable_command(Message $command)
     {
         $this->getCommand()->shouldReturn($command);
     }

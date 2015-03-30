@@ -2,24 +2,24 @@
 
 namespace League\Tactician\Bernard;
 
-use League\Tactician\Command;
+use Bernard\Message;
 
 /**
  * Indicates the command has been queued or not
  *
  * @final
  */
-class QueuedCommand implements Command
+class QueuedCommand
 {
     /**
-     * @var QueueableCommand
+     * @var Message
      */
     protected $command;
 
     /**
-     * @param QueueableCommand $command
+     * @param Message $command
      */
-    public function __construct(QueueableCommand $command)
+    public function __construct(Message $command)
     {
         $this->command = $command;
     }
@@ -27,7 +27,7 @@ class QueuedCommand implements Command
     /**
      * Returns the wrapped command
      *
-     * @return QueueableCommand
+     * @return Message
      */
     public function getCommand()
     {
