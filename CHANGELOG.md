@@ -1,5 +1,7 @@
 # Change Log
 
+## 0.4.0 - 2015-05-08
+Updated dependencies to Tactician 0.6
 
 ## 0.3.0 - 2015-03-30
 
