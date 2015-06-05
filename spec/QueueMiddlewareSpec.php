@@ -49,10 +49,10 @@ class QueueMiddlewareSpec extends ObjectBehavior
         );
     }
 
-    function it_unwraps_a_command(Producer $producer, Message $command, QueuedCommand $queuedCommand, Middleware $middleware)
+    function it_unwraps_a_command(Producer $producer, Message $command, Middleware $middleware)
     {
+        $queuedCommand = new QueuedCommand($command->getWrappedObject());
         $producer->produce($command)->shouldNotBeCalled();
-        $queuedCommand->getCommand()->willReturn($command);
         $next = function() {};
         $middleware->execute($command, $next)->willReturn(true);
 

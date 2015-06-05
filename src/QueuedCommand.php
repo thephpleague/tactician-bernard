@@ -9,7 +9,7 @@ use Bernard\Message;
  *
  * @final
  */
-class QueuedCommand
+final class QueuedCommand
 {
     /**
      * @var Message

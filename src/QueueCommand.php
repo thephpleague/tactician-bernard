@@ -7,7 +7,7 @@ namespace League\Tactician\Bernard;
  *
  * @final
  */
-class QueueCommand implements QueueableCommand
+final class QueueCommand implements QueueableCommand
 {
     /**
      * @var object
