@@ -9,7 +9,7 @@
 [![HHVM Status](https://img.shields.io/hhvm/league/tactician-bernard.svg?style=flat-square)](http://hhvm.h4cc.de/package/league/tactician-bernard)
 [![Total Downloads](https://img.shields.io/packagist/dt/league/tactician-bernard.svg?style=flat-square)](https://packagist.org/packages/league/tactician-bernard)
 
-**Queueing command bus plugin for [Tactician](http://tactician.thephpleague.com) based on [Bernard](http://bernardphp.com).**
+**Queueing command bus plugin for [Tactician](http://tactician.thephpleague.com) based on [Bernard](https://bernard.readthedocs.org/).**
 
 
 ## Install
