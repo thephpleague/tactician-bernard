@@ -11,6 +11,9 @@ use Prophecy\Argument;
 
 class QueueMiddlewareSpec extends ObjectBehavior
 {
+    /**
+     * @param \Bernard\Producer $producer
+     */
     function let(Producer $producer)
     {
         $this->beConstructedWith($producer);
@@ -26,39 +29,55 @@ class QueueMiddlewareSpec extends ObjectBehavior
         $this->shouldImplement('League\Tactician\Middleware');
     }
 
+    /**
+     * @param \Bernard\Producer $producer
+     * @param \Bernard\Message  $command
+     */
     function it_executes_a_command(Producer $producer, Message $command)
     {
         $producer->produce($command)->shouldBeCalled();
 
-        $this->execute($command, function() {});
+        $this->execute(
+            $command,
+            function () {
+            }
+        );
     }
 
+    /**
+     * @param \Bernard\Producer            $producer
+     * @param \League\Tactician\Middleware $middleware
+     */
     function it_executes_invokes_the_next_middleware(Producer $producer, Middleware $middleware)
     {
         $command = new \stdClass;
-
         $producer->produce($command)->shouldNotBeCalled();
-        $next = function() {};
+        $next = function () {};
         $middleware->execute($command, $next)->willReturn(true);
 
         $this->execute(
             $command,
-            function($command) use ($middleware, $next) {
+            function ($command) use ($middleware, $next) {
                 return $middleware->execute($command, $next);
             }
         );
     }
 
+    /**
+     * @param \Bernard\Producer            $producer
+     * @param \Bernard\Message             $command
+     * @param \League\Tactician\Middleware $middleware
+     */
     function it_unwraps_a_command(Producer $producer, Message $command, Middleware $middleware)
     {
         $queuedCommand = new QueuedCommand($command->getWrappedObject());
         $producer->produce($command)->shouldNotBeCalled();
-        $next = function() {};
+        $next = function () {};
         $middleware->execute($command, $next)->willReturn(true);
 
         $this->execute(
             $queuedCommand,
-            function($command) use ($middleware, $next) {
+            function ($command) use ($middleware, $next) {
                 return $middleware->execute($command, $next);
             }
         );

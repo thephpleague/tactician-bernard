@@ -7,6 +7,9 @@ use Prophecy\Argument;
 
 class QueueCommandSpec extends ObjectBehavior
 {
+    /**
+     * @param \spec\League\Tactician\Bernard\Command $command
+     */
     function let(Command $command)
     {
         $this->beConstructedWith($command);
@@ -17,11 +20,17 @@ class QueueCommandSpec extends ObjectBehavior
         $this->shouldHaveType('League\Tactician\Bernard\QueueCommand');
     }
 
+    /**
+     * @param \spec\League\Tactician\Bernard\Command $command
+     */
     function it_has_a_command(Command $command)
     {
         $this->getCommand()->shouldReturn($command);
     }
 
+    /**
+     * @param \spec\League\Tactician\Bernard\Command $command
+     */
     function it_guesses_the_name_by_default()
     {
         $this->beConstructedWith(new Command);
@@ -29,6 +38,9 @@ class QueueCommandSpec extends ObjectBehavior
         $this->getName()->shouldReturn('Command');
     }
 
+    /**
+     * @param \spec\League\Tactician\Bernard\Command $command
+     */
     function it_accepts_a_name(Command $command)
     {
         $this->beConstructedWith($command, 'customName');

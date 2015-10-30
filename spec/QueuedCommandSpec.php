@@ -7,6 +7,9 @@ use PhpSpec\ObjectBehavior;
 
 class QueuedCommandSpec extends ObjectBehavior
 {
+    /**
+     * @param \Bernard\Message $command
+     */
     function let(Message $command)
     {
         $this->beConstructedWith($command);
@@ -17,6 +20,9 @@ class QueuedCommandSpec extends ObjectBehavior
         $this->shouldHaveType('League\Tactician\Bernard\QueuedCommand');
     }
 
+    /**
+     * @param \Bernard\Message $command
+     */
     function it_has_a_queueable_command(Message $command)
     {
         $this->getCommand()->shouldReturn($command);
