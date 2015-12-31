@@ -29,7 +29,7 @@ Documentation is available on the [official website](http://tactician.thephpleag
 ## Testing
 
 ``` bash
-$ phpspec run
+$ vendor/bin/phpspec run
 ```
 
 
@@ -38,10 +38,14 @@ $ phpspec run
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 
+## Security
+Disclosure information can be found on [the main Tactician repo](https://github.com/thephpleague/tactician#security).
+
+
 ## Credits
 
-- [Ross Tuck](https://github.com/rosstuck)
 - [Márk Sági-Kazár](https://github.com/sagikazarmark)
+- [Ross Tuck](https://github.com/rosstuck)
 - [All Contributors](https://github.com/thephpleague/tactician-bernard/contributors)
 
 
