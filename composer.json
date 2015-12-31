@@ -15,13 +15,22 @@
         "league/tactician": "^1.0"
     },
     "require-dev": {
-        "phpspec/phpspec": "~2.1",
-        "henrikbjorn/phpspec-code-coverage" : "~1.0"
+        "phpspec/phpspec": "^2.4",
+        "henrikbjorn/phpspec-code-coverage" : "^1.0"
     },
     "autoload": {
         "psr-4": {
             "League\\Tactician\\Bernard\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\League\\Tactician\\Bernard\\": "spec/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpspec run",
+        "test-ci": "vendor/bin/phpspec run -c phpspec.yml.ci"
     },
     "extra": {
         "branch-alias": {

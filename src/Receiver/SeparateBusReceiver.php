@@ -6,7 +6,7 @@ use Bernard\Message;
 use League\Tactician\Bernard\Receiver;
 
 /**
- * Receives a Message from a Consumer and handles it
+ * Receives a Message from a Consumer and handles it.
  */
 class SeparateBusReceiver extends Receiver
 {

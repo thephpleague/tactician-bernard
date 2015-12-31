@@ -6,7 +6,7 @@ use Bernard\Message;
 use League\Tactician\CommandBus;
 
 /**
- * Receives a Message from a Consumer
+ * Receives a Message from a Consumer.
  */
 abstract class Receiver
 {
@@ -24,14 +24,14 @@ abstract class Receiver
     }
 
     /**
-     * Handles the message
+     * Handles the message.
      *
      * @param Message $message
      */
     abstract public function handle(Message $message);
 
     /**
-     * Makes the receiver callable to be able to register it in a router
+     * Makes the receiver callable to be able to register it in a router.
      *
      * @param Message $message
      *

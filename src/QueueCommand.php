@@ -3,7 +3,7 @@
 namespace League\Tactician\Bernard;
 
 /**
- * Wraps any command to be queueable
+ * Wraps any command to be queueable.
  *
  * @final
  */
@@ -36,7 +36,7 @@ final class QueueCommand implements QueueableCommand
     }
 
     /**
-     * Returns the wrapped command
+     * Returns the wrapped command.
      *
      * @return object
      */

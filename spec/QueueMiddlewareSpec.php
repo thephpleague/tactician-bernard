@@ -2,16 +2,16 @@
 
 namespace spec\League\Tactician\Bernard;
 
+use Bernard\Message;
+use Bernard\Producer;
 use League\Tactician\Bernard\QueuedCommand;
+use League\Tactician\Middleware;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class QueueMiddlewareSpec extends ObjectBehavior
 {
-    /**
-     * @param \Bernard\Producer $producer
-     */
-    function let($producer)
+    function let(Producer $producer)
     {
         $this->beConstructedWith($producer);
     }
@@ -26,11 +26,7 @@ class QueueMiddlewareSpec extends ObjectBehavior
         $this->shouldImplement('League\Tactician\Middleware');
     }
 
-    /**
-     * @param \Bernard\Producer $producer
-     * @param \Bernard\Message  $command
-     */
-    function it_executes_a_command($producer, $command)
+    function it_executes_a_command(Producer $producer, Message $command)
     {
         $producer->produce($command)->shouldBeCalled();
 
@@ -41,11 +37,7 @@ class QueueMiddlewareSpec extends ObjectBehavior
         );
     }
 
-    /**
-     * @param \Bernard\Producer            $producer
-     * @param \League\Tactician\Middleware $middleware
-     */
-    function it_executes_invokes_the_next_middleware($producer, $middleware)
+    function it_executes_invokes_the_next_middleware(Producer $producer, Message $command, Middleware $middleware)
     {
         $command = new \stdClass;
         $producer->produce($command)->shouldNotBeCalled();
@@ -60,12 +52,7 @@ class QueueMiddlewareSpec extends ObjectBehavior
         );
     }
 
-    /**
-     * @param \Bernard\Producer            $producer
-     * @param \Bernard\Message             $command
-     * @param \League\Tactician\Middleware $middleware
-     */
-    function it_unwraps_a_command($producer, $command, $middleware)
+    function it_unwraps_a_command(Producer $producer, Message $command, Middleware $middleware)
     {
         $queuedCommand = new QueuedCommand($command->getWrappedObject());
         $producer->produce($command)->shouldNotBeCalled();

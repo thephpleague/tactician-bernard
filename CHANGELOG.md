@@ -6,6 +6,7 @@
 
 - Updated dependencies to Tactician 1.0
 
+
 ## 0.4.1 - 2015-06-05
 
 ### Added
