@@ -21,7 +21,7 @@ $ composer require league/tactician-bernard
 ```
 
 
-## Usage
+## Documentation
 
 Documentation is available on the [official website](http://tactician.thephpleague.com/plugins/bernard/).
 
@@ -29,16 +29,17 @@ Documentation is available on the [official website](http://tactician.thephpleag
 ## Testing
 
 ``` bash
-$ vendor/bin/phpspec run
+$ composer test
 ```
 
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md).
 
 
 ## Security
+
 Disclosure information can be found on [the main Tactician repo](https://github.com/thephpleague/tactician#security).
 
 

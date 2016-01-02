@@ -8,7 +8,7 @@ use League\Tactician\Command;
 use League\Tactician\Middleware;
 
 /**
- * Sends the command to a remote location using message queues
+ * Sends the command to a remote location using message queues.
  */
 class QueueMiddleware implements Middleware
 {

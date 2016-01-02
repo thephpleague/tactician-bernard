@@ -5,7 +5,7 @@ namespace League\Tactician\Bernard;
 use Bernard\Message;
 
 /**
- * Indicates the command has been queued or not
+ * Indicates the command has been queued or not.
  *
  * @final
  */
@@ -25,7 +25,7 @@ final class QueuedCommand
     }
 
     /**
-     * Returns the wrapped command
+     * Returns the wrapped command.
      *
      * @return Message
      */

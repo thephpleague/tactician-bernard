@@ -1,10 +1,10 @@
 suites:
-  tactician_suite:
-    namespace: League\Tactician\Bernard
-    psr4_prefix: League\Tactician\Bernard
+    tactician_bernard_suite:
+        namespace: League\Tactician\Bernard
+        psr4_prefix: League\Tactician\Bernard
 extensions:
-  - PhpSpec\Extension\CodeCoverageExtension
+    - PhpSpec\Extension\CodeCoverageExtension
 formatter.name: pretty
 code_coverage:
-  format: clover
-  output: build/coverage.xml
+    format: clover
+    output: build/coverage.xml
