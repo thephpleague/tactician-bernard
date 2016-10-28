@@ -1,27 +1,43 @@
 language: php
 
+sudo: false
+
+cache:
+    directories:
+        - $HOME/.composer/cache/files
+
 php:
-  - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
+    - 5.5
+    - 5.6
+    - 7.0
+    - 7.1
+    - hhvm
+
+env:
+    global:
+        - TEST_COMMAND="composer test"
+
+branches:
+    except:
+        - /^analysis-.*$/
 
 matrix:
-  allow_failures:
-    - php: 7.0
-  include:
-    - php: 5.5
-      env:
-        - COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
-        - PHPSPEC_FLAGS="-c phpspec.yml.ci"
-        - COVERAGE=true
+    fast_finish: true
+    include:
+        - php: 5.5
+          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest --ignore-platform-reqs" COVERAGE=true TEST_COMMAND="composer test-ci"
+
+before_install:
+    - if [[ $COVERAGE != true ]]; then phpenv config-rm xdebug.ini || true; fi
 
 install:
-  - travis_retry composer self-update
-  - travis_retry composer update ${COMPOSER_FLAGS} --prefer-source --no-interaction
+    # To be removed when this issue will be resolved: https://github.com/composer/composer/issues/5355
+    - if [[ "$COMPOSER_FLAGS" == *"--prefer-lowest"* ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable --quiet; fi
+    - travis_retry composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
 
-script: vendor/bin/phpspec run ${PHPSPEC_FLAGS}
+script:
+    - $TEST_COMMAND
 
-after_script:
-  - if [[ "$COVERAGE" = true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
-  - if [[ "$COVERAGE" = true ]]; then php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml; fi
+after_success:
+    - if [[ $COVERAGE = true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
+    - if [[ $COVERAGE = true ]]; then php ocular.phar code-coverage:upload --format=php-clover build/coverage.xml; fi
