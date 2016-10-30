@@ -4,6 +4,7 @@ namespace spec\League\Tactician\Bernard;
 
 use Bernard\Message;
 use Bernard\Producer;
+use League\Tactician\Bernard\QueueCommand;
 use League\Tactician\Bernard\QueuedCommand;
 use League\Tactician\Bernard\QueueMiddleware;
 use League\Tactician\Middleware;
@@ -48,10 +49,25 @@ final class QueueMiddlewareSpec extends ObjectBehavior
         );
     }
 
-    function it_unwraps_a_command(Producer $producer, Message $command, Middleware $middleware)
+    function it_unwraps_an_already_queued_command(Producer $producer, Message $command, Middleware $middleware)
     {
         $queuedCommand = new QueuedCommand($command->getWrappedObject());
         $producer->produce($command)->shouldNotBeCalled();
+
+        $middleware->execute($command, Argument::type('callable'))->shouldBeCalled();
+
+        $this->execute(
+            $queuedCommand,
+            function ($command) use ($middleware) {
+                return $middleware->getWrappedObject()->execute($command, function () {});
+            }
+        );
+    }
+
+    function it_unwraps_a_wrapped_command(Producer $producer, Command $command, Middleware $middleware)
+    {
+        $queuedCommand = new QueuedCommand(new QueueCommand($command->getWrappedObject()));
+        $producer->produce(Argument::any())->shouldNotBeCalled();
 
         $middleware->execute($command, Argument::type('callable'))->shouldBeCalled();
 
