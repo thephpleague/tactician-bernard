@@ -5,7 +5,7 @@ namespace spec\League\Tactician\Bernard\Receiver;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class SameBusReceiverSpec extends ObjectBehavior
+final class SameBusReceiverSpec extends ObjectBehavior
 {
     /**
      * @param \League\Tactician\CommandBus $commandBus

@@ -5,7 +5,7 @@ namespace spec\League\Tactician\Bernard;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class QueueCommandSpec extends ObjectBehavior
+final class QueueCommandSpec extends ObjectBehavior
 {
     /**
      * @param \spec\League\Tactician\Bernard\Command $command

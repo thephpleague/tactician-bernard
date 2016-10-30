@@ -4,20 +4,18 @@ namespace League\Tactician\Bernard;
 
 /**
  * Wraps any command to be queueable
- *
- * @final
  */
 final class QueueCommand implements QueueableCommand
 {
     /**
      * @var object
      */
-    protected $command;
+    private $command;
 
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @param object      $command

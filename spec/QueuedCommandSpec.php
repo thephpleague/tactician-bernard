@@ -4,7 +4,7 @@ namespace spec\League\Tactician\Bernard;
 
 use PhpSpec\ObjectBehavior;
 
-class QueuedCommandSpec extends ObjectBehavior
+final class QueuedCommandSpec extends ObjectBehavior
 {
     /**
      * @param \Bernard\Message $command

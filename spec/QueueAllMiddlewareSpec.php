@@ -7,7 +7,7 @@ use League\Tactician\Bernard\QueuedCommand;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class QueueAllMiddlewareSpec extends ObjectBehavior
+final class QueueAllMiddlewareSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {

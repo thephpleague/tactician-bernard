@@ -10,7 +10,7 @@ use League\Tactician\Middleware;
  *
  * Should be placed before {@link League\Tactician\Bernard\QueueMiddleware} in the middleware chain.
  */
-class QueueAllMiddleware implements Middleware
+final class QueueAllMiddleware implements Middleware
 {
     /**
      * {@inheritdoc}
