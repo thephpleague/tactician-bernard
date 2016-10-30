@@ -2,7 +2,7 @@
     "name": "league/tactician-bernard",
     "description": "Queueing command bus plugin for Tactician based on Bernard",
     "license": "MIT",
-    "keywords": ["bernard", "tactician", "command-bus"],
+    "keywords": ["bernard", "tactician", "command-bus", "message queue"],
     "homepage": "http://tactician.thephpleague.com",
     "authors": [
         {
