@@ -36,6 +36,8 @@ final class QueueCommandNormalizerSpec extends ObjectBehavior
             'name' => 'queue',
             'data' => ['key' => 'value'],
         ]);
+
+        $this->supportsNormalization($queueCommand)->shouldReturn(true);
     }
 
     function it_denormalizes_queue_command_and_delegates_message_to_aggregate(Message $message, AggregateNormalizer $aggregate)
@@ -52,5 +54,7 @@ final class QueueCommandNormalizerSpec extends ObjectBehavior
         $queueCommand->shouldHaveType(QueueCommand::class);
         $queueCommand->getCommand()->shouldReturn($message);
         $queueCommand->getName()->shouldReturn('queue');
+
+        $this->supportsDenormalization($normalized, QueueCommand::class)->shouldReturn(true);
     }
 }
