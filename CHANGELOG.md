@@ -1,7 +1,7 @@
 # Change Log
 
 
-## UNRELEASED
+## 0.6.0 - 2016-10-30
 
 ### Added
 
