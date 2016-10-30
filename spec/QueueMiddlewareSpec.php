@@ -6,7 +6,7 @@ use League\Tactician\Bernard\QueuedCommand;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class QueueMiddlewareSpec extends ObjectBehavior
+final class QueueMiddlewareSpec extends ObjectBehavior
 {
     /**
      * @param \Bernard\Producer $producer

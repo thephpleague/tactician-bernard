@@ -4,7 +4,7 @@ namespace spec\League\Tactician\Bernard\Receiver;
 
 use PhpSpec\ObjectBehavior;
 
-class SeparateBusReceiverSpec extends ObjectBehavior
+final class SeparateBusReceiverSpec extends ObjectBehavior
 {
     /**
      * @param \League\Tactician\CommandBus $commandBus

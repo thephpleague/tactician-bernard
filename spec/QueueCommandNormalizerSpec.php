@@ -5,7 +5,7 @@ namespace spec\League\Tactician\Bernard;
 use League\Tactician\Bernard\QueueCommand;
 use PhpSpec\ObjectBehavior;
 
-class QueueCommandNormalizerSpec extends ObjectBehavior
+final class QueueCommandNormalizerSpec extends ObjectBehavior
 {
     /**
      * @param Normalt\Normalizer\AggregateNormalizer $aggregate

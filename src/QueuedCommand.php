@@ -6,15 +6,13 @@ use Bernard\Message;
 
 /**
  * Indicates the command has been queued or not
- *
- * @final
  */
 final class QueuedCommand
 {
     /**
      * @var Message
      */
-    protected $command;
+    private $command;
 
     /**
      * @param Message $command

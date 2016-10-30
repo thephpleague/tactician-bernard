@@ -9,5 +9,4 @@ use Bernard\Message;
  */
 interface QueueableCommand extends Message
 {
-
 }

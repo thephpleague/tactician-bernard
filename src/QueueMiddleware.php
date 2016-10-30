@@ -10,12 +10,12 @@ use League\Tactician\Middleware;
 /**
  * Sends the command to a remote location using message queues
  */
-class QueueMiddleware implements Middleware
+final class QueueMiddleware implements Middleware
 {
     /**
      * @var Producer
      */
-    protected $producer;
+    private $producer;
 
     /**
      * @param Producer $producer

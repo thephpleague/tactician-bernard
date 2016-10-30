@@ -7,7 +7,7 @@ use Bernard\Normalizer\AbstractAggregateNormalizerAware;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
-class QueueCommandNormalizer extends AbstractAggregateNormalizerAware implements NormalizerInterface, DenormalizerInterface
+final class QueueCommandNormalizer extends AbstractAggregateNormalizerAware implements NormalizerInterface, DenormalizerInterface
 {
     /**
      * {@inheritdoc}

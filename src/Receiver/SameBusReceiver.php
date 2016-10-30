@@ -9,7 +9,7 @@ use League\Tactician\Bernard\QueuedCommand;
 /**
  * Receives a Message from a Consumer and handles it (additionally prevents it from being requeued)
  */
-class SameBusReceiver extends Receiver
+final class SameBusReceiver extends Receiver
 {
     /**
      * {@inheritdoc}
