@@ -3,6 +3,7 @@
 namespace spec\League\Tactician\Bernard;
 
 use Bernard\Message;
+use League\Tactician\Bernard\QueueAllMiddleware;
 use League\Tactician\Bernard\QueueCommand;
 use League\Tactician\Bernard\QueuedCommand;
 use League\Tactician\Middleware;
@@ -13,12 +14,12 @@ final class QueueAllMiddlewareSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('League\Tactician\Bernard\QueueAllMiddleware');
+        $this->shouldHaveType(QueueAllMiddleware::class);
     }
 
     function it_is_a_middleware()
     {
-        $this->shouldImplement('League\Tactician\Middleware');
+        $this->shouldImplement(Middleware::class);
     }
 
     function it_wraps_a_command(Middleware $middleware, Command $command)

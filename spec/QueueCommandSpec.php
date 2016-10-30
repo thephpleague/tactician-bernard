@@ -2,6 +2,7 @@
 
 namespace spec\League\Tactician\Bernard;
 
+use League\Tactician\Bernard\QueueCommand;
 use PhpSpec\ObjectBehavior;
 
 final class QueueCommandSpec extends ObjectBehavior
@@ -13,7 +14,7 @@ final class QueueCommandSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('League\Tactician\Bernard\QueueCommand');
+        $this->shouldHaveType(QueueCommand::class);
     }
 
     function it_has_a_command(Command $command)
