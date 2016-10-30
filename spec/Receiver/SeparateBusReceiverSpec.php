@@ -22,20 +22,20 @@ final class SeparateBusReceiverSpec extends ObjectBehavior
 
     function it_is_a_receiver()
     {
-        $this->shouldImplement(Receiver::class);
+        $this->shouldHaveType(Receiver::class);
     }
 
     function it_handles_a_message(CommandBus $commandBus, Message $command)
     {
-        $commandBus->handle($command)->willReturn(true);
+        $commandBus->handle($command)->shouldBeCalled();
 
-        $this->handle($command)->shouldReturn(true);
+        $this->handle($command);
     }
 
     function it_is_invokable(CommandBus $commandBus, Message $command)
     {
-        $commandBus->handle($command)->willReturn(true);
+        $commandBus->handle($command)->shouldBeCalled();
 
-        $this->__invoke($command)->shouldReturn(true);
+        $this->__invoke($command);
     }
 }

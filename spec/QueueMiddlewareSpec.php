@@ -8,6 +8,7 @@ use League\Tactician\Bernard\QueuedCommand;
 use League\Tactician\Bernard\QueueMiddleware;
 use League\Tactician\Middleware;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 final class QueueMiddlewareSpec extends ObjectBehavior
 {
@@ -30,22 +31,19 @@ final class QueueMiddlewareSpec extends ObjectBehavior
     {
         $producer->produce($command)->shouldBeCalled();
 
-        $this->execute(
-            $command,
-            function () {}
-        );
+        $this->execute($command, function () {});
     }
 
     function it_executes_invokes_the_next_middleware(Producer $producer, Middleware $middleware, Command $command)
     {
         $producer->produce($command)->shouldNotBeCalled();
-        $next = function () {};
-        $middleware->execute($command, $next)->willReturn(true);
+
+        $middleware->execute($command, Argument::type('callable'))->shouldBeCalled();
 
         $this->execute(
             $command,
-            function ($command) use ($middleware, $next) {
-                return $middleware->execute($command, $next);
+            function ($command) use ($middleware) {
+                return $middleware->getWrappedObject()->execute($command, function () {});
             }
         );
     }
@@ -54,13 +52,13 @@ final class QueueMiddlewareSpec extends ObjectBehavior
     {
         $queuedCommand = new QueuedCommand($command->getWrappedObject());
         $producer->produce($command)->shouldNotBeCalled();
-        $next = function () {};
-        $middleware->execute($command, $next)->willReturn(true);
+
+        $middleware->execute($command, Argument::type('callable'))->shouldBeCalled();
 
         $this->execute(
             $queuedCommand,
-            function ($command) use ($middleware, $next) {
-                return $middleware->execute($command, $next);
+            function ($command) use ($middleware) {
+                return $middleware->getWrappedObject()->execute($command, function () {});
             }
         );
     }

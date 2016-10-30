@@ -24,20 +24,20 @@ final class SameBusReceiverSpec extends ObjectBehavior
 
     function it_is_a_receiver()
     {
-        $this->shouldImplement(Receiver::class);
+        $this->shouldHaveType(Receiver::class);
     }
 
     function it_handles_a_message(CommandBus $commandBus, Message $command)
     {
-        $commandBus->handle(Argument::type(QueuedCommand::class))->willReturn(true);
+        $commandBus->handle(Argument::type(QueuedCommand::class))->shouldBeCalled();
 
-        $this->handle($command)->shouldReturn(true);
+        $this->handle($command);
     }
 
     function it_is_invokable(CommandBus $commandBus, Message $command)
     {
-        $commandBus->handle(Argument::type(QueuedCommand::class))->willReturn(true);
+        $commandBus->handle(Argument::type(QueuedCommand::class))->shouldBeCalled();
 
-        $this->__invoke($command)->shouldReturn(true);
+        $this->__invoke($command);
     }
 }

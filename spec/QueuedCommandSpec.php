@@ -18,7 +18,7 @@ final class QueuedCommandSpec extends ObjectBehavior
         $this->shouldHaveType(QueuedCommand::class);
     }
 
-    function it_has_a_queueable_command(Message $command)
+    function it_has_a_command_from_the_queue(Message $command)
     {
         $this->getCommand()->shouldReturn($command);
     }
