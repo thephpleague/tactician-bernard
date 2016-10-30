@@ -3,7 +3,6 @@
 namespace spec\League\Tactician\Bernard;
 
 use Bernard\Message;
-use Bernard\Message\DefaultMessage;
 use League\Tactician\Bernard\QueueCommand;
 use Normalt\Normalizer\AggregateNormalizer;
 use PhpSpec\ObjectBehavior;
@@ -42,10 +41,12 @@ final class QueueCommandNormalizerSpec extends ObjectBehavior
 
     function it_denormalizes_queue_command_and_delegates_message_to_aggregate(Message $message, AggregateNormalizer $aggregate)
     {
-        $aggregate->denormalize(['key' => 'value'], DefaultMessage::class, null)->willReturn($message);
+        $messageClass = get_class($message->getWrappedObject());
+
+        $aggregate->denormalize(['key' => 'value'], $messageClass, null)->willReturn($message);
 
         $normalized = [
-            'class' => DefaultMessage::class,
+            'class' => $messageClass,
             'name' => 'queue',
             'data' => ['key' => 'value'],
         ];
