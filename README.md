@@ -33,12 +33,12 @@ $ composer test
 
 ## Contributing
 
-Contributing information can be found on [the main Tactician repo](https://github.com/thephpleague/tactician#contributing).
+Contributing information can be found in [the main Tactician repo](https://github.com/thephpleague/tactician#contributing).
 
 
 ## Security
 
-Disclosure information can be found on [the main Tactician repo](https://github.com/thephpleague/tactician#security).
+Disclosure information can be found in [the main Tactician repo](https://github.com/thephpleague/tactician#security).
 
 
 ## Credits
