@@ -1,6 +1,14 @@
 # Change Log
 
 
+## UNRELEASED
+
+### Added
+
+- QueueAllMiddleware to allow queueing any command
+- QueueCommandNormalizer to normalize the QueueCommand wrapper
+
+
 ## 0.5.0 - 2015-12-31
 
 ### Changed
