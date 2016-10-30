@@ -2,8 +2,10 @@
 
 namespace spec\League\Tactician\Bernard;
 
+use Bernard\Message;
 use League\Tactician\Bernard\QueueCommand;
 use League\Tactician\Bernard\QueuedCommand;
+use League\Tactician\Middleware;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -19,12 +21,8 @@ final class QueueAllMiddlewareSpec extends ObjectBehavior
         $this->shouldImplement('League\Tactician\Middleware');
     }
 
-    /**
-     * @param \League\Tactician\Middleware $middleware
-     */
-    function it_wraps_a_command($middleware)
+    function it_wraps_a_command(Middleware $middleware, Command $command)
     {
-        $command = new \stdClass;
         $middleware->execute(Argument::type(QueueCommand::class), Argument::type('callable'))->shouldBeCalled();
 
         $this->execute(
@@ -36,11 +34,7 @@ final class QueueAllMiddlewareSpec extends ObjectBehavior
     }
 
 
-    /**
-     * @param \League\Tactician\Middleware $middleware
-     * @param \Bernard\Message             $command
-     */
-    function it_does_not_wrap_a_message($middleware, $command)
+    function it_does_not_wrap_a_message(Middleware $middleware, Message $command)
     {
         $middleware->execute($command, Argument::type('callable'))->shouldBeCalled();
 
@@ -52,11 +46,7 @@ final class QueueAllMiddlewareSpec extends ObjectBehavior
         );
     }
 
-    /**
-     * @param \League\Tactician\Middleware $middleware
-     * @param \Bernard\Message             $command
-     */
-    function it_does_not_wrap_an_already_queued_command($middleware, $command)
+    function it_does_not_wrap_an_already_queued_command(Middleware $middleware, Message $command)
     {
         $command = new QueuedCommand($command->getWrappedObject());
         $middleware->execute($command, Argument::type('callable'))->shouldBeCalled();
