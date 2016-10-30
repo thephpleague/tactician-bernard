@@ -5,6 +5,7 @@ namespace spec\League\Tactician\Bernard;
 use Bernard\Message;
 use Bernard\Producer;
 use League\Tactician\Bernard\QueuedCommand;
+use League\Tactician\Bernard\QueueMiddleware;
 use League\Tactician\Middleware;
 use PhpSpec\ObjectBehavior;
 
@@ -17,12 +18,12 @@ final class QueueMiddlewareSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('League\Tactician\Bernard\QueueMiddleware');
+        $this->shouldHaveType(QueueMiddleware::class);
     }
 
     function it_is_a_middleware()
     {
-        $this->shouldImplement('League\Tactician\Middleware');
+        $this->shouldImplement(Middleware::class);
     }
 
     function it_executes_a_command(Producer $producer, Message $command)
