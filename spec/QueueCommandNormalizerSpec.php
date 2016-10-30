@@ -2,16 +2,16 @@
 
 namespace spec\League\Tactician\Bernard;
 
+use Bernard\Message;
 use League\Tactician\Bernard\QueueCommand;
+use Normalt\Normalizer\AggregateNormalizer;
 use PhpSpec\ObjectBehavior;
 
 class QueueCommandNormalizerSpec extends ObjectBehavior
 {
-    /**
-     * @param Normalt\Normalizer\AggregateNormalizer $aggregate
-     */
-    function let($aggregate)
+    function let(AggregateNormalizer $aggregate)
     {
+        $this->setAggregateNormalizer($aggregate);
     }
 
     function it_is_a_normalizer_and_denormailzer()
@@ -20,19 +20,13 @@ class QueueCommandNormalizerSpec extends ObjectBehavior
         $this->shouldHaveType('Symfony\Component\Serializer\Normalizer\DenormalizerInterface');
     }
 
-    /**
-     * @param Bernard\Message                        $message
-     * @param Normalt\Normalizer\AggregateNormalizer $aggregate
-     */
-    function it_normalizes_queue_command_and_delegates_message_to_aggregate($message, $aggregate)
+    function it_normalizes_queue_command_and_delegates_message_to_aggregate(Message $message, AggregateNormalizer $aggregate)
     {
         $queueCommand = new QueueCommand($messageDouble = $message->getWrappedObject(), 'queue');
 
         $aggregate->normalize($message)->willReturn([
             'key' => 'value',
         ]);
-
-        $this->setAggregateNormalizer($aggregate);
 
         $this->normalize($queueCommand)->shouldReturn([
             'class' => get_class($messageDouble),
@@ -41,13 +35,8 @@ class QueueCommandNormalizerSpec extends ObjectBehavior
         ]);
     }
 
-    /**
-     * @param Bernard\Message $message
-     */
-    function it_denormalizes_queue_command_and_delegates_message_to_aggregate($message, $aggregate)
+    function it_denormalizes_queue_command_and_delegates_message_to_aggregate(Message $message, AggregateNormalizer $aggregate)
     {
-        $this->setAggregateNormalizer($aggregate);
-
         $aggregate->denormalize(['key' => 'value'], 'Bernard\Message\DefaultMessage', null)->willReturn($message);
 
         $normalized = [
