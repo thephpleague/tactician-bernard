@@ -9,4 +9,8 @@ use Bernard\Message;
  */
 interface QueueableCommand extends Message
 {
+    /**
+     * @return string
+     */
+    public function getQueueName();
 }
