@@ -2,6 +2,9 @@
 
 namespace League\Tactician\Bernard;
 
+use Bernard\Message\PlainMessage;
+use Bernard\Util;
+
 /**
  * Wraps any command to be queueable
  */
@@ -18,10 +21,16 @@ final class QueueCommand implements QueueableCommand
     private $name;
 
     /**
-     * @param object      $command
-     * @param string|null $name
+     * @var string
      */
-    public function __construct($command, $name = null)
+    private $queueName;
+
+    /**
+     * @param object $command
+     * @param string|null $name
+     * @param string|null $queueName
+     */
+    public function __construct($command, $name = null, $queueName = null)
     {
         $this->command = $command;
 
@@ -30,7 +39,12 @@ final class QueueCommand implements QueueableCommand
             $name = substr($className, strrpos($className, '\\') + 1);
         }
 
+        if (null === $queueName) {
+            $queueName = Util::guessQueue(new PlainMessage($name));
+
+        }
         $this->name = $name;
+        $this->queueName = $queueName;
     }
 
     /**
@@ -49,5 +63,13 @@ final class QueueCommand implements QueueableCommand
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQueueName()
+    {
+        return $this->queueName;
     }
 }
